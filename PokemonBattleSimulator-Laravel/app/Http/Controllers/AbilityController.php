@@ -6,27 +6,32 @@ use App\Models\Ability;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreAbilityRequest;
 use App\Http\Requests\UpdateAbilityRequest;
+use App\Filters\AbilityFilter;
+use App\Http\Resources\AbilityResource;
+use App\Http\Resources\AbilityCollection;
 
 class AbilityController extends Controller
 {
-    public function index(Request $request)
+    public function index(Request $request, AbilityFilter $filter)
     {
         $pageSize = $request->query('page_size', 10);
 
-        $name = $request->query('name');
-
         $query = Ability::query();
 
-        if ($name) {
-            $query->where('name', 'like', '%' . $name . '%');
-        }
+        // Primena filtera
+        $filter->setQuery($query);
+        $filter->apply();
 
-        return $query->paginate($pageSize);
+        // Paginacija rezultata
+        $abilities = $query->paginate($pageSize);
+
+        return new AbilityCollection($abilities);
     }
 
     public function show($id)
     {
-        return Ability::findOrFail($id);
+        $ability = Ability::findOrFail($id);
+        return new AbilityResource($ability);
     }
 
     public function store(StoreAbilityRequest $request)
@@ -34,7 +39,7 @@ class AbilityController extends Controller
         $validated = $request->validated();
         $ability = Ability::create($validated);
 
-        return response()->json($ability, 201);
+        return response()->json(new AbilityResource($ability), 201);
     }
 
     public function update(UpdateAbilityRequest $request, $id)
@@ -43,7 +48,7 @@ class AbilityController extends Controller
         $validated = $request->validated();
         $ability->update($validated);
 
-        return response()->json($ability);
+        return response()->json(new AbilityResource($ability));
     }
 
     public function destroy($id)
@@ -54,4 +59,5 @@ class AbilityController extends Controller
         return response()->json(['message' => 'Ability deleted successfully']);
     }
 }
+
 

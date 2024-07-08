@@ -6,28 +6,32 @@ use App\Models\Pokemon;
 use Illuminate\Http\Request;
 use App\Http\Requests\StorePokemonRequest;
 use App\Http\Requests\UpdatePokemonRequest;
-use App\Http\Requests\SearchPokemonRequest;
+use App\Filters\PokemonFilter;
+use App\Http\Resources\PokemonResource;
+use App\Http\Resources\PokemonCollection;
 
 class PokemonController extends Controller
 {
-    public function index(Request $request)
+    public function index(Request $request, PokemonFilter $filter)
     {
         $pageSize = $request->query('page_size', 10);
 
-        $type = $request->query('type');
-
         $query = Pokemon::query();
 
-        if ($type) {
-            $query->where('type', $type);
-        }
+        // Apply filters
+        $filter->setQuery($query);
+        $filter->apply();
 
-        return $query->paginate($pageSize);
+        // Paginate the results
+        $pokemon = $query->paginate($pageSize);
+
+        return new PokemonCollection($pokemon);
     }
 
     public function show($id)
     {
-        return Pokemon::findOrFail($id);
+        $pokemon = Pokemon::findOrFail($id);
+        return new PokemonResource($pokemon);
     }
 
     public function store(StorePokemonRequest $request)
@@ -35,7 +39,7 @@ class PokemonController extends Controller
         $validated = $request->validated();
         $pokemon = Pokemon::create($validated);
 
-        return response()->json($pokemon, 201);
+        return response()->json(new PokemonResource($pokemon), 201);
     }
 
     public function update(UpdatePokemonRequest $request, $id)
@@ -44,7 +48,7 @@ class PokemonController extends Controller
         $validated = $request->validated();
         $pokemon->update($validated);
 
-        return response()->json($pokemon);
+        return response()->json(new PokemonResource($pokemon));
     }
 
     public function destroy($id)
@@ -54,16 +58,6 @@ class PokemonController extends Controller
 
         return response()->json(['message' => 'Pokemon deleted successfully']);
     }
-
-    public function getByType($type)
-    {
-        return Pokemon::where('type', $type)->get();
-    }
-
-    public function search(SearchPokemonRequest $request)
-    {
-        $validated = $request->validated();
-        return Pokemon::where('name', 'like', '%' . $validated['name'] . '%')->get();
-    }
 }
+
 

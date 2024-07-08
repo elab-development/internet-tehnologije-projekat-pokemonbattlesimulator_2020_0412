@@ -1,33 +1,37 @@
 <?php
 
-
 namespace App\Http\Controllers;
 
 use App\Models\Battle;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreBattleRequest;
 use App\Http\Requests\UpdateBattleRequest;
+use App\Filters\BattleFilter;
+use App\Http\Resources\BattleResource;
+use App\Http\Resources\BattleCollection;
 
 class BattleController extends Controller
 {
-    public function index(Request $request)
+    public function index(Request $request, BattleFilter $filter)
     {
         $pageSize = $request->query('page_size', 10);
 
-        $result = $request->query('result');
-
         $query = Battle::query();
 
-        if ($result) {
-            $query->where('result', $result);
-        }
+        // Primena filtera
+        $filter->setQuery($query);
+        $filter->apply();
 
-        return $query->paginate($pageSize);
+        // Paginacija rezultata
+        $battles = $query->paginate($pageSize);
+
+        return new BattleCollection($battles);
     }
 
     public function show($id)
     {
-        return Battle::findOrFail($id);
+        $battle = Battle::findOrFail($id);
+        return new BattleResource($battle);
     }
 
     public function store(StoreBattleRequest $request)
@@ -35,7 +39,7 @@ class BattleController extends Controller
         $validated = $request->validated();
         $battle = Battle::create($validated);
 
-        return response()->json($battle, 201);
+        return response()->json(new BattleResource($battle), 201);
     }
 
     public function update(UpdateBattleRequest $request, $id)
@@ -44,7 +48,7 @@ class BattleController extends Controller
         $validated = $request->validated();
         $battle->update($validated);
 
-        return response()->json($battle);
+        return response()->json(new BattleResource($battle));
     }
 
     public function destroy($id)
@@ -55,4 +59,6 @@ class BattleController extends Controller
         return response()->json(['message' => 'Battle deleted successfully']);
     }
 }
+
+
 

@@ -6,27 +6,32 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
+use App\Filters\UserFilter;
+use App\Http\Resources\UserResource;
+use App\Http\Resources\UserCollection;
 
 class UserController extends Controller
 {
-    public function index(Request $request)
+    public function index(Request $request, UserFilter $filter)
     {
         $pageSize = $request->query('page_size', 10);
 
-        $role = $request->query('role');
-
         $query = User::query();
 
-        if ($role) {
-            $query->where('role', $role);
-        }
+        // Primena filtera
+        $filter->setQuery($query);
+        $filter->apply();
 
-        return $query->paginate($pageSize);
+        // Paginacija rezultata
+        $users = $query->paginate($pageSize);
+
+        return new UserCollection($users);
     }
 
     public function show($id)
     {
-        return User::findOrFail($id);
+        $user = User::findOrFail($id);
+        return new UserResource($user);
     }
 
     public function store(StoreUserRequest $request)
@@ -34,7 +39,7 @@ class UserController extends Controller
         $validated = $request->validated();
         $user = User::create($validated);
 
-        return response()->json($user, 201);
+        return response()->json(new UserResource($user), 201);
     }
 
     public function update(UpdateUserRequest $request, $id)
@@ -43,7 +48,7 @@ class UserController extends Controller
         $validated = $request->validated();
         $user->update($validated);
 
-        return response()->json($user);
+        return response()->json(new UserResource($user));
     }
 
     public function destroy($id)
@@ -70,3 +75,4 @@ class UserController extends Controller
         return response()->json($randomPokemon);
     }
 }
+
