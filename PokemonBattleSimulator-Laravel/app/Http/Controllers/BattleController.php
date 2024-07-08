@@ -1,5 +1,6 @@
 <?php
 
+
 namespace App\Http\Controllers;
 
 use App\Models\Battle;
@@ -9,9 +10,19 @@ use App\Http\Requests\UpdateBattleRequest;
 
 class BattleController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        return Battle::all();
+        $pageSize = $request->query('page_size', 10);
+
+        $result = $request->query('result');
+
+        $query = Battle::query();
+
+        if ($result) {
+            $query->where('result', $result);
+        }
+
+        return $query->paginate($pageSize);
     }
 
     public function show($id)
@@ -44,3 +55,4 @@ class BattleController extends Controller
         return response()->json(['message' => 'Battle deleted successfully']);
     }
 }
+

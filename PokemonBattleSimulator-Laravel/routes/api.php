@@ -29,6 +29,8 @@ Route::group([
     Route::get('/abilities/{id}', [AbilityController::class, 'show']);
     Route::get('/battles', [BattleController::class, 'index']);
     Route::get('/battles/{id}', [BattleController::class, 'show']);
+    Route::get('/users', [UserController::class, 'index']);
+    Route::get('/users/{id}', [UserController::class, 'show']);
 
     Route::get('pokemons/types/{type}', [PokemonController::class, 'getByType']);
     Route::post('pokemons/search', [PokemonController::class, 'search']);
@@ -43,9 +45,13 @@ Route::group([
         Route::apiResource('pokemons', PokemonController::class)->except(['index', 'show']);
         Route::apiResource('abilities', AbilityController::class)->except(['index', 'show']);
         Route::apiResource('battles', BattleController::class)->except(['index', 'show']);
+        Route::apiResource('users', UserController::class)->except(['index', 'show']);
 
         Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
         Route::post('/users/{user}/add-pokemons', [UserController::class, 'addPokemons'])->name('users.addPokemons');
         Route::post('/users/{user}/get-random-pokemon', [UserController::class, 'getRandomPokemon'])->name('users.getRandomPokemon');
     });
 });
+
+
+

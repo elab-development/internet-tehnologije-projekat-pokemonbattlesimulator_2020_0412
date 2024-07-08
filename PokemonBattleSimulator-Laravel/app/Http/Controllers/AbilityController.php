@@ -9,9 +9,19 @@ use App\Http\Requests\UpdateAbilityRequest;
 
 class AbilityController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        return Ability::all();
+        $pageSize = $request->query('page_size', 10);
+
+        $name = $request->query('name');
+
+        $query = Ability::query();
+
+        if ($name) {
+            $query->where('name', 'like', '%' . $name . '%');
+        }
+
+        return $query->paginate($pageSize);
     }
 
     public function show($id)
@@ -44,3 +54,4 @@ class AbilityController extends Controller
         return response()->json(['message' => 'Ability deleted successfully']);
     }
 }
+

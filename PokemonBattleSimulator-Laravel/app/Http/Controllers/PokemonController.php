@@ -10,9 +10,19 @@ use App\Http\Requests\SearchPokemonRequest;
 
 class PokemonController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        return Pokemon::all();
+        $pageSize = $request->query('page_size', 10);
+
+        $type = $request->query('type');
+
+        $query = Pokemon::query();
+
+        if ($type) {
+            $query->where('type', $type);
+        }
+
+        return $query->paginate($pageSize);
     }
 
     public function show($id)
@@ -56,3 +66,4 @@ class PokemonController extends Controller
         return Pokemon::where('name', 'like', '%' . $validated['name'] . '%')->get();
     }
 }
+
