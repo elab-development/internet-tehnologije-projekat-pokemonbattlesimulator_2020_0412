@@ -2,53 +2,63 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
 use Illuminate\Http\Request;
-use App\Http\Requests\StoreUserRequest;
-use App\Http\Requests\UpdateUserRequest;
-use App\Filters\UserFilter;
-use App\Http\Resources\UserResource;
-use App\Http\Resources\UserCollection;
+use App\Models\User;
+use Illuminate\Support\Facades\Cache;
 
 class UserController extends Controller
 {
-    public function index(Request $request, UserFilter $filter)
+    public function index(Request $request)
     {
-        $pageSize = $request->query('page_size', 10);
+        $key = 'users.page.'.$request->query('page', 1);
+        $users = Cache::remember($key, 3600, function () {
+            return User::paginate(10);
+        });
 
-        $query = User::query();
+        return response()->json($users);
+    }
 
-        // Primena filtera
-        $filter->setQuery($query);
-        $filter->apply();
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|string|min:6',
+        ]);
 
-        // Paginacija rezultata
-        $users = $query->paginate($pageSize);
+        $user = User::create($validated);
 
-        return new UserCollection($users);
+        // Clear cache after storing a new user
+        Cache::flush();
+
+        return response()->json($user, 201);
     }
 
     public function show($id)
     {
-        $user = User::findOrFail($id);
-        return new UserResource($user);
+        $key = 'user.'.$id;
+        $user = Cache::remember($key, 3600, function () use ($id) {
+            return User::findOrFail($id);
+        });
+
+        return response()->json($user);
     }
 
-    public function store(StoreUserRequest $request)
+    public function update(Request $request, $id)
     {
-        $validated = $request->validated();
-        $user = User::create($validated);
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email,'.$id,
+            'password' => 'sometimes|string|min:6',
+        ]);
 
-        return response()->json(new UserResource($user), 201);
-    }
-
-    public function update(UpdateUserRequest $request, $id)
-    {
         $user = User::findOrFail($id);
-        $validated = $request->validated();
         $user->update($validated);
 
-        return response()->json(new UserResource($user));
+        // Clear cache after updating user
+        Cache::forget('user.'.$id);
+
+        return response()->json($user);
     }
 
     public function destroy($id)
@@ -56,35 +66,11 @@ class UserController extends Controller
         $user = User::findOrFail($id);
         $user->delete();
 
+        // Clear cache after deleting user
+        Cache::forget('user.'.$id);
+
         return response()->json(['message' => 'User deleted successfully']);
     }
-
-    public function addPokemons(Request $request, User $user)
-    {
-        $pokemonIds = $request->input('pokemon_ids');
-        $user->pokemons()->syncWithoutDetaching($pokemonIds);
-
-        return response()->json(['message' => 'Pokemons added successfully']);
-    }
-
-    public function getRandomPokemon(User $user)
-    {
-        $randomPokemon = Pokemon::inRandomOrder()->first();
-        $user->pokemons()->attach($randomPokemon->id);
-
-        return response()->json($randomPokemon);
-    }
-
-    public function resetPassword(Request $request, User $user)
-    {
-        $request->validate([
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
-        ]);
-
-        $user->password = Hash::make($request->input('password'));
-        $user->save();
-
-        return response()->json(['message' => 'Password reset successfully']);
-    }
 }
+
 
