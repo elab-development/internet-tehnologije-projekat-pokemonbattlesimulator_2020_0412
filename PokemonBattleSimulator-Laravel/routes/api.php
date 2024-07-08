@@ -6,9 +6,11 @@ use App\Http\Controllers\PokemonController;
 use App\Http\Controllers\AbilityController;
 use App\Http\Controllers\BattleController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\FileUploadController;
 
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
+Route::post('/upload', [FileUploadController::class, 'upload'])->name('upload.file');
 
 Route::group([
     'prefix' => 'v1',
