@@ -27,6 +27,10 @@ Route::group([
     Route::post('pokemons/search', [PokemonController::class, 'search']);
     Route::delete('/pokemons/{id}', [PokemonController::class, 'destroy']);
 
+    Route::get('/pokemons/export/csv', [PokemonController::class, 'exportCSV'])->name('pokemons.export.csv');
+    Route::get('/pokemons/export/ics', [PokemonController::class, 'exportICS'])->name('pokemons.export.ics');
+    Route::get('/pokemons/export/pdf', [PokemonController::class, 'exportPDF'])->name('pokemons.export.pdf');
+
     Route::group([
         'middleware' => ['auth:sanctum', 'role:admin']
     ], function () {

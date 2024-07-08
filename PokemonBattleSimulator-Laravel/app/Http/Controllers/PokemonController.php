@@ -58,6 +58,45 @@ class PokemonController extends Controller
 
         return response()->json(['message' => 'Pokemon deleted successfully']);
     }
+
+    public function exportCSV()
+    {
+        $pokemons = Pokemon::all();
+
+
+        $csvExporter = new \LaravelCsvGenerator\LaravelCsvGenerator();
+        $csvExporter->addRow(['ID', 'Name', 'Type']);
+
+        foreach ($pokemons as $pokemon) {
+           $csvExporter->addRow([$pokemon->id, $pokemon->name, $pokemon->type]);
+        }
+
+
+        return $csvExporter->download('pokemons.csv');
+    }
+
+    public function exportICS()
+    {
+        $pokemons = Pokemon::all();
+
+
+        $icsExporter = new \App\Services\IcsExporter();
+        $icsExporter->addEvents($pokemons);
+
+        return response($icsExporter->getOutput())
+         ->header('Content-Type', 'text/calendar')
+         ->header('Content-Disposition', 'attachment; filename="pokemons.ics"');
+    }
+
+    public function exportPDF()
+    {
+        $pokemons = Pokemon::all();
+
+        $pdf = \PDF::loadView('pokemons.pdf', compact('pokemons'));
+
+        return $pdf->download('pokemons.pdf');
+    }
+
 }
 
 
