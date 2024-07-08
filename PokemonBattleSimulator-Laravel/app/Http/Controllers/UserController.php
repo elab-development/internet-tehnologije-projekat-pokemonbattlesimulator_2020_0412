@@ -74,5 +74,17 @@ class UserController extends Controller
 
         return response()->json($randomPokemon);
     }
+
+    public function resetPassword(Request $request, User $user)
+    {
+        $request->validate([
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+        ]);
+
+        $user->password = Hash::make($request->input('password'));
+        $user->save();
+
+        return response()->json(['message' => 'Password reset successfully']);
+    }
 }
 
