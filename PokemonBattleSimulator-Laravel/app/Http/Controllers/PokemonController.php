@@ -19,13 +19,12 @@ class PokemonController extends Controller
         $query = Pokemon::query();
 
         // Apply filters
-        $filter->setQuery($query);
-        $filter->apply();
+        $filter->applyFilters($query, $request->all());
 
         // Paginate the results
-        $pokemon = $query->paginate($pageSize);
+        $pokemons = $query->paginate($pageSize);
 
-        return new PokemonCollection($pokemon);
+        return new PokemonCollection($pokemons);
     }
 
     public function show($id)

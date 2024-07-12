@@ -9,6 +9,18 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\FileUploadController;
 use App\Http\Controllers\PokemonTCGController;
 
+use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Request;
+
+Route::get('/test-connection', function () {
+    try {
+        DB::connection()->getPdo();
+        return "Connected successfully to the database!";
+    } catch (\Exception $e) {
+        return "Could not connect to the database: " . $e->getMessage();
+    }
+});
+
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/upload', [FileUploadController::class, 'upload'])->name('upload.file');
@@ -16,7 +28,6 @@ Route::get('/pokemon-cards', [PokemonTCGController::class, 'getCards']);
 
 Route::group([
     'prefix' => 'v1',
-    'namespace' => 'App\Http\Controllers',
 ], function () {
     Route::get('/pokemons', [PokemonController::class, 'index']);
     Route::get('/pokemons/{id}', [PokemonController::class, 'show']);
