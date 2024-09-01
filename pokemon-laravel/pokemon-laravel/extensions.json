@@ -1,0 +1,7 @@
+{
+    "recommendations": [
+        "devsense.phptools-vscode",
+        "xdebug.php-debug",
+        "bmewburn.vscode-intelephense-client"
+    ]
+}
