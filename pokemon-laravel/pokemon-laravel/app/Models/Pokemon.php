@@ -7,16 +7,20 @@ use Illuminate\Database\Eloquent\Model;
 
 class Pokemon extends Model
 {
+    use HasFactory;
+
     protected $fillable = [
-        'name',
-        'type',
-        'hp',
-        'attack',
-        'defense',
-        'speed',
-        'user_id',
-        'is_legendary'
+        'name', 'type', 'hp', 'attack', 'defense', 'speed', 'user_id', 'level', 'evolution_stage', 'is_legendary',
     ];
 
-    use HasFactory;
-}
+    public function abilities()
+    {
+        return $this->hasMany(Ability::class);
+    }
+
+    public function battles()
+    {
+        return $this->belongsToMany(Battle::class, 'battle_pokemon', 'pokemon_id', 'battle_id')
+            ->withPivot('role');
+    }
+};

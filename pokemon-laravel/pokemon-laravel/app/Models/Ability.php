@@ -7,12 +7,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class Ability extends Model
 {
+    use HasFactory;
+
     protected $fillable = [
-        'name',
-        'type',
-        'description',
-        'pokemon_id'
+        'name', 'type', 'description', 'pokemon_id', 'effect',
     ];
 
-    use HasFactory;
-}
+    public function pokemon()
+    {
+        return $this->belongsTo(Pokemon::class);
+    }
+};
+
