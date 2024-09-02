@@ -14,7 +14,8 @@ class Pokemon extends Model
         'attack',
         'defense',
         'speed',
-        'user_id'
+        'user_id',
+        'is_legendary'
     ];
 
     use HasFactory;
