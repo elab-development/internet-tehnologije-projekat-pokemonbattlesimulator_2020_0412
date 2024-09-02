@@ -17,5 +17,5 @@ class Ability extends Model
     {
         return $this->belongsTo(Pokemon::class);
     }
-};
+}
 

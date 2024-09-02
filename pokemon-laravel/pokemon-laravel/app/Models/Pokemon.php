@@ -23,4 +23,4 @@ class Pokemon extends Model
         return $this->belongsToMany(Battle::class, 'battle_pokemon', 'pokemon_id', 'battle_id')
             ->withPivot('role');
     }
-};
+}

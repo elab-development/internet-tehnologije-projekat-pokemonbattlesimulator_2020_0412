@@ -2,14 +2,14 @@
 
 namespace Database\Seeders;
 
-use Database\Factories\AbilityFactory;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\Ability;
 
 class AbilitySeeder extends Seeder
 {
     public function run()
     {
-        AbilityFactory::factory()->count(30)->create(); // Generiši 30 random sposobnosti
+        Ability::factory()->count(10)->create();
     }
 }
+

@@ -9,8 +9,8 @@ class PokemonSeeder extends Seeder
 {
     public function run()
     {
-
-        Pokemon::factory()->count(10)->create();
+        Pokemon::factory()->count(5)->create();
     }
 }
+
 

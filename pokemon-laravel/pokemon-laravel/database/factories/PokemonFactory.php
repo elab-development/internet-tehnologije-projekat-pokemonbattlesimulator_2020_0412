@@ -15,7 +15,7 @@ class PokemonFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->name(),
+            'name' => $this->faker->unique()->word,
             'type' => $this->faker->randomElement(['Fire', 'Water', 'Grass', 'Electric']),
             'hp' => $this->faker->numberBetween(20, 100),
             'attack' => $this->faker->numberBetween(30, 80),
@@ -25,3 +25,6 @@ class PokemonFactory extends Factory
         ];
     }
 }
+
+
+
