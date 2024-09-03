@@ -23,29 +23,14 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
 
 Route::middleware('auth:sanctum')->group(function () {
-    Route::get('/pokemons', [PokemonController::class, 'index']);
-    Route::post('/pokemons', [PokemonController::class, 'store']);
-    Route::put('/pokemons/{id}', [PokemonController::class, 'update']);
-    Route::delete('/pokemons/{id}', [PokemonController::class, 'destroy']);
-});
+    // Resource routes for Pokemon
+    Route::resource('pokemons', PokemonController::class);
 
-// Routes for Battles
-Route::middleware('auth:sanctum')->group(function () {
-    Route::get('/battles', [BattleController::class, 'index']); // Get all battles
-    Route::post('/battles', [BattleController::class, 'store']); // Create a new battle
-    Route::get('/battles/{id}', [BattleController::class, 'show']); // Get a specific battle by ID
-    Route::put('/battles/{id}', [BattleController::class, 'update']); // Update a specific battle by ID
-    Route::delete('/battles/{id}', [BattleController::class, 'destroy']); // Delete a specific battle by ID
-});
+    // Resource routes for Battles
+    Route::resource('battles', BattleController::class);
 
-
-// Rute za Ability
-Route::middleware('auth:sanctum')->group(function () {
-    Route::post('/abilities', [AbilityController::class, 'store']); // Kreiraj novu ability
-    Route::get('/abilities', [AbilityController::class, 'index']); // Lista sve abilities
-    Route::get('/abilities/{id}', [AbilityController::class, 'show']); // Prikaz sposobnosti po ID
-    Route::put('/abilities/{id}', [AbilityController::class, 'update']); // Ažuriraj sposobnost po ID
-    Route::delete('/abilities/{id}', [AbilityController::class, 'destroy']); // Obriši sposobnost po ID
+    // Resource routes for Abilities
+    Route::resource('abilities', AbilityController::class);
 });
 
 
