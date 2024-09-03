@@ -30,6 +30,9 @@ Route::get('/abilities/status', [AbilityController::class, 'statusEffects']);
 Route::get('/abilities/type/{type}', [AbilityController::class, 'byType']);
 Route::get('/abilities/latest', [AbilityController::class, 'latest']);
 
+Route::get('battles1/pokemon/{pokemon1_id}', [BattleController::class, 'getBattlesForPokemon1']);
+Route::get('battles2/pokemon/{pokemon2_id}', [BattleController::class, 'getBattlesForPokemon2']);
+Route::get('battles/wins/pokemon/{pokemon_id}', [BattleController::class, 'getBattlesWherePokemonWon']);
 
 
 

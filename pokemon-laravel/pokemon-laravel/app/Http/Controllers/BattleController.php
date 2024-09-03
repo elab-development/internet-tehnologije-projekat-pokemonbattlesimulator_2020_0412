@@ -60,5 +60,38 @@ class BattleController extends Controller
 
         return response()->json(['message' => 'Battle deleted successfully']);
     }
+
+    public function getBattlesForPokemon1($pokemon_id)
+    {
+        $battles = Battle::where('pokemon1_id', $pokemon_id)->get();
+
+        if ($battles->isEmpty()) {
+            return response()->json(['message' => 'No battles found for this Pokémon'], 404);
+        }
+
+        return response()->json($battles);
+    }
+
+    public function getBattlesForPokemon2($pokemon_id)
+    {
+        $battles = Battle::where('pokemon2_id', $pokemon_id)->get();
+
+        if ($battles->isEmpty()) {
+            return response()->json(['message' => 'No battles found for this Pokémon'], 404);
+        }
+
+        return response()->json($battles);
+    }
+
+    public function getBattlesWherePokemonWon($pokemon_id)
+    {
+        $battles = Battle::where('winner', $pokemon_id)->get();
+
+        if ($battles->isEmpty()) {
+            return response()->json(['message' => 'No battles found where this Pokémon won'], 404);
+        }
+
+        return response()->json($battles);
+    }
 }
 
