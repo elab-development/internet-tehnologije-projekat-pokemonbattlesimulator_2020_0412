@@ -18,6 +18,8 @@ return new class extends Migration
             $table->foreignId('pokemon1_id')->constrained('pokemon')->onDelete('cascade'); // Spoljni ključ za prvi Pokemon
             $table->foreignId('pokemon2_id')->constrained('pokemon')->onDelete('cascade'); // Spoljni ključ za drugi Pokemon
             $table->string('winner'); // Dodajte kolonu za pobednika
+            $table->integer('duration');
+            $table->string('location');
             $table->timestamps();
         });
     }

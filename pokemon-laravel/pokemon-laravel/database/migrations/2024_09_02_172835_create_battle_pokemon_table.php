@@ -15,6 +15,8 @@ class CreateBattlePokemonTable extends Migration
             $table->string('role');
             $table->timestamps();
         });
+
+
     }
 
     public function down()
