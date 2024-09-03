@@ -22,6 +22,12 @@ Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
 
+Route::get('/pokemons/strongest', [PokemonController::class, 'strongest']);
+Route::get('/pokemons/types', [PokemonController::class, 'types']);
+Route::get('/pokemons/type/{type}', [PokemonController::class, 'byType']);
+
+
+
 Route::middleware('auth:sanctum')->group(function () {
     // Resource routes for Pokemon
     Route::resource('pokemons', PokemonController::class);
@@ -31,6 +37,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // Resource routes for Abilities
     Route::resource('abilities', AbilityController::class);
+
 });
 
 

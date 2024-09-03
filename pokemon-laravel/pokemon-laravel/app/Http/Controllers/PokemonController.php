@@ -47,5 +47,25 @@ class PokemonController extends Controller
         $pokemon->delete();
         return response()->json(['message' => 'Pokemon deleted successfully']);
     }
+
+    public function strongest()
+{
+    $pokemon = Pokemon::orderBy('attack', 'desc')->first();
+    return response()->json($pokemon);
+}
+
+public function types()
+{
+    $types = Pokemon::distinct()->pluck('type');
+    return response()->json($types);
+}
+
+public function byType($type)
+{
+    $pokemons = Pokemon::where('type', $type)->get();
+    return response()->json($pokemons);
+}
+
+
 }
 
