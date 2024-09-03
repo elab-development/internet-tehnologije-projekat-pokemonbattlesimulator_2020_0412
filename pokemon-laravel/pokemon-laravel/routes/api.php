@@ -35,6 +35,16 @@ Route::get('battles2/pokemon/{pokemon2_id}', [BattleController::class, 'getBattl
 Route::get('battles/wins/pokemon/{pokemon_id}', [BattleController::class, 'getBattlesWherePokemonWon']);
 
 
+Route::middleware('auth:sanctum')->group(function () {
+    // Ruta za paginaciju Pokémona
+    Route::get('/pokemons/paginate', [PokemonController::class, 'paginatedIndex']);
+
+    // Ruta za filtriranje Pokémona po tipu
+    Route::get('/pokemons/filter', [PokemonController::class, 'filterByType']);
+});
+
+
+
 
 Route::middleware('auth:sanctum')->group(function () {
     // Resource routes for Pokemon

@@ -66,6 +66,31 @@ public function byType($type)
     return response()->json($pokemons);
 }
 
+public function paginatedIndex(Request $request)
+{
+    // Paginate with a default of 10 items per page
+    $pokemons = Pokemon::paginate(10);
+
+    // Optional: Get a custom number of items per page if specified in the query parameters
+    $perPage = $request->query('per_page', 10);
+    $pokemons = Pokemon::paginate($perPage);
+
+    return response()->json($pokemons);
+}
+
+public function filterByType(Request $request)
+{
+    $type = $request->query('type');
+
+    if (!$type) {
+        return response()->json(['message' => 'Type parameter is required'], 400);
+    }
+
+    $pokemons = Pokemon::where('type', $type)->get();
+
+    return response()->json($pokemons);
+}
+
 
 }
 
