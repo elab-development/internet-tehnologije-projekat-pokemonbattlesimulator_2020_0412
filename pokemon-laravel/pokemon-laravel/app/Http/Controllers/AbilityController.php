@@ -54,5 +54,24 @@ class AbilityController extends Controller
 
         return response()->json(null, 204);
     }
+
+    public function statusEffects()
+{
+    $abilities = Ability::whereIn('effect', ['paralysis', 'burn', 'freeze'])->get();
+    return response()->json($abilities);
+}
+
+public function byType($type)
+{
+    $abilities = Ability::where('type', $type)->get();
+    return response()->json($abilities);
+}
+
+public function latest()
+{
+    $abilities = Ability::orderBy('created_at', 'desc')->take(10)->get();
+    return response()->json($abilities);
+}
+
 }
 

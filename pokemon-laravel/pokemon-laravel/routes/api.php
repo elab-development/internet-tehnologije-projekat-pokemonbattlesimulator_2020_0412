@@ -26,6 +26,11 @@ Route::get('/pokemons/strongest', [PokemonController::class, 'strongest']);
 Route::get('/pokemons/types', [PokemonController::class, 'types']);
 Route::get('/pokemons/type/{type}', [PokemonController::class, 'byType']);
 
+Route::get('/abilities/status', [AbilityController::class, 'statusEffects']);
+Route::get('/abilities/type/{type}', [AbilityController::class, 'byType']);
+Route::get('/abilities/latest', [AbilityController::class, 'latest']);
+
+
 
 
 Route::middleware('auth:sanctum')->group(function () {
