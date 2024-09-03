@@ -4,6 +4,7 @@ use App\Http\Controllers\API\AuthController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PokemonController;
 use App\Http\Controllers\BattleController;
+use App\Http\Controllers\AbilityController;
 
 
 /*
@@ -36,5 +37,16 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::put('/battles/{id}', [BattleController::class, 'update']); // Update a specific battle by ID
     Route::delete('/battles/{id}', [BattleController::class, 'destroy']); // Delete a specific battle by ID
 });
+
+
+// Rute za Ability
+Route::middleware('auth:sanctum')->group(function () {
+    Route::post('/abilities', [AbilityController::class, 'store']); // Kreiraj novu ability
+    Route::get('/abilities', [AbilityController::class, 'index']); // Lista sve abilities
+    Route::get('/abilities/{id}', [AbilityController::class, 'show']); // Prikaz sposobnosti po ID
+    Route::put('/abilities/{id}', [AbilityController::class, 'update']); // Ažuriraj sposobnost po ID
+    Route::delete('/abilities/{id}', [AbilityController::class, 'destroy']); // Obriši sposobnost po ID
+});
+
 
 
