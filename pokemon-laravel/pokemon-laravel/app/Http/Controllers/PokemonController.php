@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Pokemon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 class PokemonController extends Controller
 {
@@ -90,6 +91,26 @@ public function filterByType(Request $request)
 
     return response()->json($pokemons);
 }
+
+public function indexCache()
+    {
+        // Keširaj sve pokemone na 60 minuta
+        $pokemons = Cache::remember('pokemons', 60, function () {
+            return Pokemon::all();
+        });
+
+        return response()->json($pokemons);
+    }
+
+    public function showCache($id)
+    {
+        // Keširaj pojedinačnog pokemona na 60 minuta
+        $pokemon = Cache::remember("pokemon_{$id}", 60, function () use ($id) {
+            return Pokemon::findOrFail($id);
+        });
+
+        return response()->json($pokemon);
+    }
 
 
 }
