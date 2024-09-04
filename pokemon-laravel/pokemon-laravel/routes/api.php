@@ -9,6 +9,7 @@ use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\FileUploadController;
 use App\Http\Controllers\SearchController;
+use App\Http\Controllers\ExportController;
 
 
 
@@ -73,4 +74,8 @@ Route::middleware('auth:sanctum')->group(function () {
 Route::post('/upload', [FileUploadController::class, 'upload'])->name('file.upload');
 
 Route::get('/search', [SearchController::class, 'search']);
+
+Route::get('/export/csv', [ExportController::class, 'exportCsv']);
+
+
 
