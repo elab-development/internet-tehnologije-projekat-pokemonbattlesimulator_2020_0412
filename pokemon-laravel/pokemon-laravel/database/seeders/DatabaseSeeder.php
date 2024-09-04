@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Spatie\Permission\Models\Role;
 
 class DatabaseSeeder extends Seeder
 {
@@ -12,6 +13,11 @@ class DatabaseSeeder extends Seeder
             PokemonSeeder::class,
             BattleSeeder::class,
             AbilitySeeder::class,
+        ]);
+
+        $this->call([
+            RolesSeeder::class,
+            UserSeeder::class,
         ]);
     }
 }
