@@ -8,6 +8,9 @@ use App\Http\Controllers\AbilityController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\FileUploadController;
+use App\Http\Controllers\SearchController;
+
+
 
 
 /*
@@ -68,4 +71,6 @@ Route::middleware('auth:sanctum')->group(function () {
 });
 
 Route::post('/upload', [FileUploadController::class, 'upload'])->name('file.upload');
+
+Route::get('/search', [SearchController::class, 'search']);
 
