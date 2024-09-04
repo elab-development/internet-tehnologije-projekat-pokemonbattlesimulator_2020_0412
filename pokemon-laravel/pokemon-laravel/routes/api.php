@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PokemonController;
 use App\Http\Controllers\BattleController;
 use App\Http\Controllers\AbilityController;
+use App\Http\Controllers\Auth\ForgotPasswordController;
+use App\Http\Controllers\Auth\ResetPasswordController;
 
 
 /*
@@ -42,6 +44,12 @@ Route::middleware('auth:sanctum')->group(function () {
     // Ruta za filtriranje Pokémona po tipu
     Route::get('/pokemons/filter', [PokemonController::class, 'filterByType']);
 });
+
+
+Route::post('/password/email', [AuthController::class, 'sendResetLinkEmail']);
+Route::post('/forgot-password', [ForgotPasswordController::class, 'sendResetLinkEmail']);
+Route::post('/reset-password', [ResetPasswordController::class, 'reset']);
+
 
 
 
