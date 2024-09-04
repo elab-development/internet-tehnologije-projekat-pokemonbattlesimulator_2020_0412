@@ -7,6 +7,7 @@ use App\Http\Controllers\BattleController;
 use App\Http\Controllers\AbilityController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\ResetPasswordController;
+use App\Http\Controllers\FileUploadController;
 
 
 /*
@@ -66,5 +67,5 @@ Route::middleware('auth:sanctum')->group(function () {
 
 });
 
-
+Route::post('/upload', [FileUploadController::class, 'upload'])->name('file.upload');
 
