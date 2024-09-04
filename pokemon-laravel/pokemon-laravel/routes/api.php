@@ -10,7 +10,7 @@ use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\FileUploadController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\ExportController;
-
+use App\Http\Controllers\PokemonDataController;
 
 
 
@@ -76,6 +76,8 @@ Route::post('/upload', [FileUploadController::class, 'upload'])->name('file.uplo
 Route::get('/search', [SearchController::class, 'search']);
 
 Route::get('/export/csv', [ExportController::class, 'exportCsv']);
+
+Route::get('/pokemon-data', [PokemonDataController::class, 'fetchPokemonData']);
 
 
 
