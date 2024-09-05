@@ -1,0 +1,20 @@
+.battle-container {
+    text-align: center;
+    padding: 20px;
+  }
+  
+  .battle-button {
+    background-color: #ffcb05;
+    border: none;
+    color: black;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  .battle-button:hover {
+    background-color: #f9a825;
+  }
+  
+  
