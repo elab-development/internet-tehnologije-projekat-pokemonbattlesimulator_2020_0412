@@ -3,7 +3,9 @@ import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import LoginPage from './pages/LoginPage';
 import HomePage from './pages/HomePage';
 import BattlePage from './pages/BattlePage';
+import UserProfile from './pages/UserProfile';
 import ThemeSettings from './pages/ThemeSettings';
+import PokemonList from './pages/PokemonList';
 import './App.css';
 
 
@@ -28,6 +30,12 @@ const App = () => {
             <Link to="/battle">Battle</Link>
           </li>
           <li>
+            <Link to="/userprofile">UserProfile</Link>
+          </li>
+          <li>
+            <Link to="/pokemon-list">PokemonList</Link>
+          </li>
+          <li>
             <Link to="/themesettings">ThemeSettings</Link>
           </li>
         </ul>
@@ -37,6 +45,8 @@ const App = () => {
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/battle" element={<BattlePage />} />
+        <Route path="/userprofile" element={<UserProfile />} />
+        <Route path="/pokemon-list" element={<PokemonList />} />
         <Route path="/themesettings" element={<ThemeSettings />} />
       </Routes>
     </Router>
