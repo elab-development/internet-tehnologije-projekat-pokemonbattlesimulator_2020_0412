@@ -1,48 +1,38 @@
-import React, { useState, useEffect } from 'react';
-import './HomePage.css';
+import React from 'react';
+import './HomePage.css'; 
+import backgroundImage from './looped-pokémon-battle.gif';
+import PokemonTips from './PokemonTips';
 
 const HomePage = () => {
-  const [theme, setTheme] = useState('light');
 
-  useEffect(() => {
-    const savedTheme = localStorage.getItem('theme') || 'light';
-    setTheme(savedTheme);
-    document.body.className = savedTheme;
-  }, []);
-
-  const toggleTheme = () => {
-    const newTheme = theme === 'light' ? 'dark' : 'light';
-    setTheme(newTheme);
-    document.body.className = newTheme;
-    localStorage.setItem('theme', newTheme);
-  };
-
+  
   return (
-    <div className="home-container">
-      <div className="home-header">
-        <h1>Welcome to Pokémon Battle Simulator</h1>
-        <p>Get ready for the ultimate battle experience!</p>
+    <div className="home-container" style={{ backgroundImage: `url(${backgroundImage})` }}>
+      <header className="home-header">
+        <h1 className="header-title">Welcome to the Pokémon Battle Simulator</h1>
+      <PokemonTips />
+        <p className="header-subtitle">Choose your Pokémon, train them, and battle against others!</p>
         <button className="cta-button">Start Battle</button>
-      </div>
-      <div className="info-section">
+      </header>
+      <section className="info-section">
         <div className="info-card">
-          <h3>Feature 1</h3>
-          <p>Description of feature 1.</p>
+          <h2>Train Your Pokémon</h2>
+          <p>Enhance your Pokémon's abilities and get them ready for battle.</p>
         </div>
         <div className="info-card">
-          <h3>Feature 2</h3>
-          <p>Description of feature 2.</p>
+          <h2>Battle Others</h2>
+          <p>Challenge other players and prove your Pokémon's strength.</p>
         </div>
-      </div>
-      <button onClick={toggleTheme} className="theme-toggle-button">
-        Toggle Theme
-      </button>
+        <div className="info-card">
+          <h2>Track Your Progress</h2>
+          <p>Monitor your Pokémon's growth and battle statistics.</p>
+        </div>
+      </section>
     </div>
   );
 };
 
 export default HomePage;
-
 
 
 

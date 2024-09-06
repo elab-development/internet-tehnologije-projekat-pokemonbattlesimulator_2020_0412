@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom'; 
 import './LoginPage.css';
 import logoImage from './PoK-MoN-Battle-Simulator-9-5-2024-transformed.png';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import Notifications from './Notifications'; 
 
 const LoginPage = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [forgotPassword, setForgotPassword] = useState(false);
   const [theme, setTheme] = useState(localStorage.getItem('theme') || 'light');
+  const [notifications, setNotifications] = useState([]);
+  const navigate = useNavigate(); 
 
   useEffect(() => {
     const savedTheme = localStorage.getItem('theme') || 'light';
@@ -22,7 +26,28 @@ const LoginPage = () => {
   };
 
   const handleSignUp = () => {
-    
+    setNotifications([...notifications, { message: 'Sign up functionality not yet implemented.', type: 'info' }]);
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const username = event.target.username.value;
+    const password = event.target.password.value;
+
+   
+    if (username !== 'correctUsername' || password !== 'correctPassword') {
+      setNotifications([...notifications, { message: 'Login failed! Please check your credentials.', type: 'error' }]);
+    } else {
+      setNotifications([...notifications, { message: 'Login successful!', type: 'success' }]);
+      
+      setTimeout(() => {
+        navigate('/dashboard'); 
+      }, 1000); 
+    }
+  };
+
+  const removeNotification = (index) => {
+    setNotifications(notifications.filter((_, i) => i !== index));
   };
 
   return (
@@ -31,7 +56,7 @@ const LoginPage = () => {
         <img src={logoImage} alt="Pokémon Battle Simulator" className="logo-image" />
       </div>
       <div className="form-wrapper">
-        <form className={`login-form ${theme}`}>
+        <form className={`login-form ${theme}`} onSubmit={handleSubmit}>
           {forgotPassword ? (
             <div className="form-group">
               <h2>Forgot Password?</h2>
@@ -76,11 +101,16 @@ const LoginPage = () => {
       <footer className={`footer ${theme}`}>
         <p>&copy; 2024 Pokémon Battle Simulator. All rights reserved.</p>
       </footer>
+      <Notifications notifications={notifications} removeNotification={removeNotification} />
     </div>
   );
 };
 
 export default LoginPage;
+
+
+
+
 
 
 
