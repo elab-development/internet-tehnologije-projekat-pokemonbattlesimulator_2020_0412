@@ -1,3 +1,4 @@
+
 .login-container {
   background-color: #FFCC00; 
   display: flex;
@@ -9,20 +10,22 @@
   position: relative;
 }
 
+.login-container.dark {
+  background-color: #333333; 
+}
 
 .logo-container {
   position: absolute;
   top: 0;
   text-align: center;
-  width: 100%; 
+  width: 100%;
 }
 
 .logo-image {
-  width: 100%; 
-  max-width: 5000px; 
-  height: auto; 
+  width: 100%;
+  max-width: 1500px; 
+  height: auto;
 }
-
 
 .form-wrapper {
   display: flex;
@@ -35,60 +38,76 @@
 
 .login-form {
   background-color: rgba(255, 255, 255, 0.9); 
-  padding: 40px; 
+  padding: 40px;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   width: 100%;
-  max-width: 600px; 
-  text-align: center; 
-  margin-top: 150px; 
+  max-width: 600px;
+  text-align: center;
+  margin-top: 150px;
 }
 
+.login-form.dark {
+  background-color: rgba(51, 51, 51, 0.9); 
+}
 
 .form-group {
   margin-bottom: 15px;
-  position: relative; 
-  text-align: left; 
+  position: relative;
+  text-align: left;
 }
 
 .form-control {
-  width: calc(100% - 20px); 
+  width: calc(100% - 20px);
   padding: 10px;
   border-radius: 5px;
   border: 1px solid #ccc;
 }
 
+.form-control.dark {
+  border-color: #666666; 
+  background-color: #444444; 
+  color: #ffffff; 
+}
+
 .password-toggle {
   position: absolute;
   right: 10px;
-  top: 35px; 
+  top: 35px;
   cursor: pointer;
 }
 
-
 .submit-button {
-  background-color: #f18e38; 
+  background-color: #f18e38;
   border: none;
   color: white;
   padding: 10px;
   border-radius: 5px;
   cursor: pointer;
   width: 100%;
-  font-size: 1.2rem; 
+  font-size: 1.2rem;
   margin-top: 10px;
 }
 
 .submit-button:hover {
-  background-color: #eb8429; 
+  background-color: #eb8429;
 }
 
+.submit-button.dark {
+  background-color: #fe059e; 
+  color: #ffffff; 
+}
+
+.submit-button.dark:hover {
+  background-color: #444444; 
+}
 
 .extra-options {
   margin-top: 10px;
 }
 
 .forgot-link {
-  color: #0075BE; 
+  color: #0075BE;
   text-decoration: none;
   cursor: pointer;
   margin-bottom: 10px;
@@ -99,33 +118,37 @@
 }
 
 .sign-up-button {
-  background-color: #61dafb; 
+  background-color: #61dafb;
   border: none;
   color: white;
   padding: 10px;
   border-radius: 5px;
   cursor: pointer;
   width: 100%;
-  font-size: 1.2rem; 
+  font-size: 1.2rem;
 }
 
 .sign-up-button:hover {
-  background-color: #4fa3d6; 
+  background-color: #4fa3d6;
 }
-
 
 .footer {
   position: absolute;
-  bottom: 20px; 
+  bottom: 20px;
   text-align: center;
   width: 100%;
   color: #333;
+}
+
+.footer.dark {
+  color: #ffffff; 
 }
 
 .footer p {
   margin: 0;
   font-size: 0.9rem;
 }
+
 
 
 

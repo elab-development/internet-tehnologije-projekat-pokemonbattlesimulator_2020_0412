@@ -13,11 +13,11 @@ const PokemonTips = () => {
     'Use potions to heal your Pokémon after battle.'
   ];
 
-  // Generate a random tip
+
   useEffect(() => {
     const randomTip = tips[Math.floor(Math.random() * tips.length)];
     setTip(randomTip);
-  }, []); // Empty dependency array ensures the tip is generated on component mount
+  }, []); 
 
   return (
     <div className="tip-container">
