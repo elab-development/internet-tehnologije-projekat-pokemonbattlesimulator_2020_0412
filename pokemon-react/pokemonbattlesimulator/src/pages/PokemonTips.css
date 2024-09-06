@@ -1,0 +1,19 @@
+.tip-container {
+    background-color: rgba(255, 215, 0, 0.8);
+    padding: 20px;
+    border-radius: 10px;
+    margin: 20px auto;
+    max-width: 500px;
+    text-align: center;
+    color: #333;
+  }
+  
+  .tip-container h2 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+  }
+  
+  .tip-container p {
+    font-size: 1.2rem;
+  }
+  

@@ -1,12 +1,16 @@
 import React from 'react';
 import './HomePage.css'; 
 import backgroundImage from './looped-pokémon-battle.gif';
+import PokemonTips from './PokemonTips';
 
 const HomePage = () => {
+
+  
   return (
     <div className="home-container" style={{ backgroundImage: `url(${backgroundImage})` }}>
       <header className="home-header">
         <h1 className="header-title">Welcome to the Pokémon Battle Simulator</h1>
+      <PokemonTips />
         <p className="header-subtitle">Choose your Pokémon, train them, and battle against others!</p>
         <button className="cta-button">Start Battle</button>
       </header>
