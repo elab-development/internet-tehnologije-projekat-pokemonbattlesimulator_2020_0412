@@ -5,6 +5,7 @@ import HomePage from './pages/HomePage';
 import BattlePage from './pages/BattlePage';
 import './App.css';
 
+
 const App = () => {
   return (
     <Router>
