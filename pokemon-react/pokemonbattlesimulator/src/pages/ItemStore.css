@@ -138,6 +138,7 @@
   .inventory-grid {
     display: flex;
     flex-wrap: wrap;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
     gap: 20px;
     justify-content: center;
   }
