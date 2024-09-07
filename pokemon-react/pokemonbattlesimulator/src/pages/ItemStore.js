@@ -14,8 +14,8 @@ import stone7Image from '../picsforshops/stone7.png';
 import stone8Image from '../picsforshops/stone8.png';
 import stone9Image from '../picsforshops/stone9.png';
 import stone10Image from '../picsforshops/stone10.png';
-import coinsImage from '../picsforshops/coins.png'; // Dodaj ovu sliku
-import hpImage from '../picsforshops/hp.png'; // Dodaj ovu sliku
+import coinsImage from '../picsforshops/coins.png'; 
+import hpImage from '../picsforshops/hp.png'; 
 
 const ItemStore = () => {
   const [playerLevel, setPlayerLevel] = useState(3);
