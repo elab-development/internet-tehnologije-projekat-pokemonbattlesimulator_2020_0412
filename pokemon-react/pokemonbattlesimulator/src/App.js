@@ -6,6 +6,7 @@ import BattlePage from './pages/BattlePage';
 import UserProfile from './pages/UserProfile';
 import ThemeSettings from './pages/ThemeSettings';
 import PokemonList from './pages/PokemonList';
+import RankingTable from './pages/RankingTable';
 import './App.css';
 
 
@@ -30,6 +31,9 @@ const App = () => {
             <Link to="/battle">Battle</Link>
           </li>
           <li>
+            <Link to="/rankingtable">RankingTable</Link>
+          </li>
+          <li>
             <Link to="/userprofile">UserProfile</Link>
           </li>
           <li>
@@ -45,6 +49,7 @@ const App = () => {
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/battle" element={<BattlePage />} />
+        <Route path="/rankingtable" element={<RankingTable />} />
         <Route path="/userprofile" element={<UserProfile />} />
         <Route path="/pokemon-list" element={<PokemonList />} />
         <Route path="/themesettings" element={<ThemeSettings />} />
