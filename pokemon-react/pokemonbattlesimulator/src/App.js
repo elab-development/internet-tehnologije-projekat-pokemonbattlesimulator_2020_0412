@@ -7,6 +7,7 @@ import UserProfile from './pages/UserProfile';
 import ThemeSettings from './pages/ThemeSettings';
 import PokemonList from './pages/PokemonList';
 import RankingTable from './pages/RankingTable';
+import ItemStore from './pages/ItemStore';
 import './App.css';
 
 
@@ -40,6 +41,9 @@ const App = () => {
             <Link to="/pokemon-list">PokemonList</Link>
           </li>
           <li>
+            <Link to="/itemstore">ItemStore</Link>
+          </li>
+          <li>
             <Link to="/themesettings">ThemeSettings</Link>
           </li>
         </ul>
@@ -52,6 +56,7 @@ const App = () => {
         <Route path="/rankingtable" element={<RankingTable />} />
         <Route path="/userprofile" element={<UserProfile />} />
         <Route path="/pokemon-list" element={<PokemonList />} />
+        <Route path="/itemstore" element={<ItemStore />} />
         <Route path="/themesettings" element={<ThemeSettings />} />
       </Routes>
     </Router>

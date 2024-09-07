@@ -1,0 +1,237 @@
+:root {
+    --background-light: #f9f9f9;
+    --background-dark: #2c2c2c;
+  
+    --text-light: #333;
+    --text-dark: #69b169;
+  
+    --card-background-light: #b0a4a4;
+    --card-background-dark: #3a3a3a;
+  
+    --button-background-light: #a3d9a5;
+    --button-background-dark: #5a5a5a;
+  
+    --button-hover-light: #8cbf8f;
+    --button-hover-dark: #4a4a4a;
+  
+    --inventory-background-light: #f1f3f4;
+    --inventory-background-dark: #3b3b3b;
+  
+    --cart-background-light: #fef6e4;
+    --cart-background-dark: #4b4b4b;
+  
+    --title-color-light: #8cbf8f;
+    --title-color-dark: #f8f8f8;
+  }
+  
+  body {
+    background-color: var(--background-light);
+    color: var(--text-light);
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  
+  .item-store-container {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    text-align: center;
+  }
+  
+  .coins-info {
+    margin-bottom: 20px;
+    text-align: center;
+    background-color: var(--background-light);
+    padding: 10px;
+    border-radius: 8px;
+  }
+  
+  .coins-info p {
+    font-size: 16px;
+    color: var(--text-light);
+  }
+  
+  .coins-info .icon {
+    width: 8px;
+    vertical-align: middle;
+  }
+  
+  .coin-icon {
+    width: 12px;
+  }
+  
+  .hp-icon {
+    width: 12px;
+  }
+  
+  .item-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+  }
+  
+  .item-card {
+    width: 200px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px;
+    text-align: center;
+    background-color: var(--card-background-light);
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .item-card.available:hover {
+    transform: scale(1.1);
+  }
+  
+  .item-card.locked {
+    opacity: 0.5;
+  }
+  
+  .item-card .item-image {
+    width: 100%;
+    height: auto;
+    max-height: 150px;
+    object-fit: cover;
+  }
+  
+  .item-card p {
+    font-size: 14px;
+    color: var(--text-light);
+  }
+  
+  .item-card button {
+    margin-top: 10px;
+    background-color: var(--button-background-light);
+    border: none;
+    color: #ffffff;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .item-card button:hover {
+    background-color: var(--button-hover-light);
+  }
+  
+  .cart {
+    margin-top: 20px;
+  }
+  
+  .cart ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .cart li {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    background-color: var(--cart-background-light);
+    padding: 10px;
+    border-radius: 4px;
+  }
+  
+  .inventory {
+    margin-top: 20px;
+  }
+  
+  .inventory-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+  }
+  
+  .inventory-item {
+    width: 100px;
+    text-align: center;
+    background-color: var(--inventory-background-light);
+    padding: 10px;
+    border-radius: 4px;
+  }
+  
+  .inventory-item .inventory-image {
+    width: 100%;
+    height: auto;
+    max-height: 100px;
+    object-fit: cover;
+  }
+  
+  .inventory-message {
+    font-style: italic;
+    color: #888;
+    text-align: center;
+  }
+  
+  .item-card .coin-icon {
+    width: 12px;
+    vertical-align: middle;
+  }
+  
+  .user-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    font-size: 16px;
+    text-align: center;
+    background-color: var(--background-light);
+    padding: 10px;
+    border-radius: 8px;
+  }
+  
+  .user-info .coin-icon {
+    width: 6px;
+  }
+  
+  .user-info .hp-icon {
+    width: 6px;
+  }
+  
+  .item-store-title {
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: var(--title-color-light);
+  }
+  
+  /* Tamna tema */
+  @media (prefers-color-scheme: dark) {
+    body {
+      background-color: var(--background-dark);
+      color: var(--text-dark);
+    }
+  
+    .coins-info {
+      background-color: var(--background-dark);
+    }
+  
+    .item-card {
+      background-color: var(--card-background-dark);
+    }
+  
+    .item-card p {
+      color: var(--text-dark);
+    }
+  
+    .item-card button {
+      background-color: var(--button-background-dark);
+    }
+  
+    .item-card button:hover {
+      background-color: var(--button-hover-dark);
+    }
+  
+    .cart li {
+      background-color: var(--cart-background-dark);
+    }
+  
+    .inventory-item {
+      background-color: var(--inventory-background-dark);
+    }
+  
+    .item-store-title {
+      color: var(--title-color-dark);
+    }
+  }
+  
