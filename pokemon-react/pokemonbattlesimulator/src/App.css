@@ -21,7 +21,7 @@
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: white;
+  color: rgb(40, 39, 39);
 }
 
 .App-link {
@@ -38,15 +38,25 @@
 }
 
 
-nav {
-  background-color: #2b2d34; 
-  padding: 15px 30px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-  display: flex;
-  justify-content: center;
-  align-items: center;
+/* src/App.css */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
 }
 
+/* src/App.css */
+nav {
+  background-color: #2b2d34;
+  padding: 5px 5px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  display: flex;
+  justify-content: flex-start; /* Prikazivanje sadržaja sa leve strane */
+  align-items: center;
+  overflow-x: auto; /* Omogućava horizontalno skrolovanje */
+  white-space: nowrap; /* Sprečava prelamanje stavki u novi red */
+  scrollbar-width: thin; /* Za kontrolu širine skrolbara u Firefoxu */
+  scrollbar-color: #888 #2b2d34; /* Boja skrolbara i pozadine u Firefoxu */
+}
 
 nav ul {
   list-style-type: none;
@@ -55,22 +65,20 @@ nav ul {
   display: flex;
 }
 
-
 nav ul li {
-  margin: 0 20px;
+  margin: 0 15px; /* Smanjena margina za bolji prikaz */
 }
 
 nav ul li a {
   position: relative;
   display: inline-block;
   text-decoration: none;
-  color: #f0f0f0; 
-  font-family: 'Press Start 2P', cursive; 
+  color: #f0f0f0;
+  font-family: 'Press Start 2P', cursive;
   font-size: 18px;
   font-weight: bold;
   transition: color 0.3s ease, transform 0.3s ease;
 }
-
 
 nav ul li a::after {
   content: "";
@@ -79,20 +87,24 @@ nav ul li a::after {
   left: 0;
   width: 100%;
   height: 2px;
-  background-color: #f1c40f; 
+  background-color: #f1c40f;
   transform: scaleX(0);
   transition: transform 0.3s ease;
 }
-
 
 nav ul li a:hover::after {
   transform: scaleX(1);
 }
 
-
 nav ul li a:hover {
-  color: #f1c40f; 
-  transform: translateY(-2px); 
+  color: #f1c40f;
+  transform: translateY(-2px);
 }
+
+main {
+  padding: 0px;
+}
+
+
 
 
