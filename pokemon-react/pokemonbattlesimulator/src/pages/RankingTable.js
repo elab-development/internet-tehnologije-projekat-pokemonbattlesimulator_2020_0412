@@ -1,10 +1,22 @@
-import React from 'react';
-import { useTable, useSortBy } from 'react-table';
+import React, { useMemo } from 'react';
+import { useTable, useSortBy, usePagination, useGlobalFilter } from 'react-table';
 import './RankingTable.css';
 
-const RankingTable = () => {
+// Global Filter komponenta
+const GlobalFilter = ({ filter, setFilter }) => (
+  <span>
+    Search: 
+    <input
+      value={filter || ''}
+      onChange={e => setFilter(e.target.value || undefined)}
+      placeholder="Type to search..."
+    />
+  </span>
+);
 
-  const data = React.useMemo(
+const RankingTable = () => {
+  // Podaci o Pokémon-ima
+  const data = useMemo(
     () => [
       { rank: 1, name: 'Pikachu', wins: 25, points: 2000 },
       { rank: 2, name: 'Charizard', wins: 20, points: 1800 },
@@ -15,12 +27,23 @@ const RankingTable = () => {
       { rank: 7, name: 'Eevee', wins: 8, points: 1200 },
       { rank: 8, name: 'Snorlax', wins: 7, points: 1100 },
       { rank: 9, name: 'Gengar', wins: 6, points: 1000 },
-      { rank: 10, name: 'Mewtwo', wins: 5, points: 950 }
+      { rank: 10, name: 'Mewtwo', wins: 5, points: 950 },
+      { rank: 11, name: 'Vulpix', wins: 4, points: 900 },
+      { rank: 12, name: 'Machop', wins: 3, points: 850 },
+      { rank: 13, name: 'Diglett', wins: 2, points: 800 },
+      { rank: 14, name: 'Poliwag', wins: 2, points: 800 },
+      { rank: 15, name: 'Sandshrew', wins: 2, points: 800 },
+      { rank: 16, name: 'Psyduck', wins: 1, points: 750 },
+      { rank: 17, name: 'Magnemite', wins: 1, points: 750 },
+      { rank: 18, name: 'Doduo', wins: 1, points: 750 },
+      { rank: 19, name: 'Seel', wins: 1, points: 750 },
+      { rank: 20, name: 'Grimer', wins: 1, points: 750 }
     ],
     []
   );
 
-  const columns = React.useMemo(
+  // Kolone za tabelu
+  const columns = useMemo(
     () => [
       {
         Header: 'Rank',
@@ -45,14 +68,38 @@ const RankingTable = () => {
     []
   );
 
-  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } = useTable(
-    { columns, data },
-    useSortBy
+  // React-Table Hooks
+  const {
+    getTableProps,
+    getTableBodyProps,
+    headerGroups,
+    page,
+    prepareRow,
+    state,
+    setGlobalFilter,
+    gotoPage,
+    canNextPage,
+    canPreviousPage,
+    pageOptions,
+    pageCount,
+    nextPage,
+    previousPage,
+    setPageSize
+  } = useTable(
+    { 
+      columns, 
+      data, 
+      initialState: { pageIndex: 0, pageSize: 10 } // Postavi broj redova po stranici na 10
+    },
+    useGlobalFilter,
+    useSortBy,
+    usePagination
   );
 
   return (
     <div className="ranking-table">
       <h2>Ranking Table</h2>
+      <GlobalFilter filter={state.globalFilter} setFilter={setGlobalFilter} />
       <div className="table-container">
         <table {...getTableProps()}>
           <thead>
@@ -76,7 +123,7 @@ const RankingTable = () => {
             ))}
           </thead>
           <tbody {...getTableBodyProps()}>
-            {rows.map(row => {
+            {page.map(row => {
               prepareRow(row);
               return (
                 <tr {...row.getRowProps()}>
@@ -88,6 +135,48 @@ const RankingTable = () => {
             })}
           </tbody>
         </table>
+      </div>
+      <div className="pagination">
+        <button onClick={() => gotoPage(0)} disabled={!canPreviousPage}>
+          {'<<'}
+        </button>
+        <button onClick={() => previousPage()} disabled={!canPreviousPage}>
+          {'<'}
+        </button>
+        <button onClick={() => nextPage()} disabled={!canNextPage}>
+          {'>'}
+        </button>
+        <button onClick={() => gotoPage(pageCount - 1)} disabled={!canNextPage}>
+          {'>>'}
+        </button>
+        <span>
+          Page{' '}
+          <strong>
+            {state.pageIndex + 1} of {pageOptions.length}
+          </strong>
+        </span>
+        <span>
+          | Go to page:{' '}
+          <input
+            type="number"
+            defaultValue={state.pageIndex + 1}
+            onChange={e => {
+              const page = e.target.value ? Number(e.target.value) - 1 : 0;
+              gotoPage(page);
+            }}
+            style={{ width: '100px' }}
+          />
+        </span>
+        <select
+          value={state.pageSize}
+          onChange={e => setPageSize(Number(e.target.value))}
+        >
+          {[10, 20].map(pageSize => (
+            <option key={pageSize} value={pageSize}>
+              Show {pageSize}
+            </option>
+          ))}
+        </select>
       </div>
     </div>
   );
