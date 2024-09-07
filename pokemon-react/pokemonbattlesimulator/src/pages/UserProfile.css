@@ -2,13 +2,13 @@
     width: 40%;
     margin: auto;
     padding: 70px;
-    background: linear-gradient(to bottom, #012851 30%, rgb(210, 205, 205) 20%);
+    background: linear-gradient(to bottom, #012851 28%, rgb(210, 205, 205) 20%);
     background-size: cover;
     background-position: center;
     border-radius: 30px;
     position: relative;
     overflow: hidden;
-    box-shadow: 0 54px 5888px rgba(0, 0, 0, 0.5); /* Dodaj senku iza kontejnera */
+    box-shadow: 0 54px 5888px rgba(0, 0, 0, 0.5); 
   }
   
   
@@ -19,10 +19,10 @@
     width: 120px;
     height: 120px;
     object-fit: cover;
-    border: 4px solid white; /* Beli okvir oko profilne slike */
+    border: 4px solid white; 
     position: relative;
-    z-index: 1; /* Održava sliku iznad gradijenta i pozadine */
-    top: -60px; /* Pomera sliku da bude deo plave pozadine */
+    z-index: 1; 
+    top: -60px; 
   }
   
   .profile-avatar-default {
@@ -35,10 +35,10 @@
     width: 150px;
     height: 150px;
     border-radius: 50%;
-    border: 4px solid white; /* Beli okvir oko default avatar slike */
+    border: 4px solid white; 
     position: relative;
-    z-index: 1; /* Održava sliku iznad gradijenta */
-    top: -60px; /* Pomera sliku da bude deo plave pozadine */
+    z-index: 1;
+    top: -60px; 
   }
   
   
@@ -47,21 +47,21 @@
   }
 
   .profile-info h1 {
-    font-family: 'Arial', sans-serif; /* Izaberi željeni font */
-    font-size: 4.5rem; /* Veličina fonta */
-    font-weight: bold; /* Debljina fonta */
-    color: #060000; /* Boja fonta */
-    margin: 0; /* Uklanja marginu ako je potrebno */
-    margin: -30px 0 10px 0; /* Pomeranje teksta gore */
+    font-family: 'Arial', sans-serif; 
+    font-size: 4.5rem; 
+    font-weight: bold; 
+    color: #060000; 
+    margin: 0; 
+    margin: -30px 0 10px 0; 
   }
   
   .pokemon-section {
     margin: 5px 0;
-    text-align: center; /* Center the title and list items */
+    text-align: center; 
   }
   
   .pokemon-section h2 {
-    margin-bottom: 15px; /* Space below the title */
+    margin-bottom: 15px; 
   }
   
   .pokemon-list {
@@ -87,7 +87,7 @@
     background-color: #f3f3f3;
     border-radius: 5px;
     height: 10px;
-    width: 50%; /* Smanjena širina progress bara */
+    width: 50%; 
     margin-top: 5px;
     margin-left: auto;
     margin-right: auto;
@@ -103,41 +103,41 @@
   .battle-history {
     margin-top: 20px;
     text-align: center;
-    height: 200px; /* Visina istorije borbi */
-    overflow: hidden; /* Sprečava da tekst izlazi van ovog prostora */
+    height: 200px; 
+    overflow: hidden; 
     position: relative;
   }
   
   .battle-history h2 {
     margin: 0;
     padding: 10px;
-    background-color: rgb(210, 205, 205); /* Boja pozadine za naslov */
+    background-color: rgb(210, 205, 205); 
     position: relative;
-    z-index: 1; /* Zadržava naslov iznad skrolujućeg teksta */
+    z-index: 1; 
   }
   
   .battle-history-content {
     position: absolute;
-    top: 50px; /* Pomera tekst ispod naslova */
+    top: 50px; 
     width: 100%;
-    height: 150px; /* Visina za prikaz borbi ispod naslova */
-    overflow: hidden; /* Sprečava da tekst prelazi gornju ivicu */
+    height: 150px; 
+    overflow: hidden; 
     animation: scroll 10s linear infinite;
   }
 
   .battle-history-content ul {
-    list-style-type: none; /* Uklanja bullete */
-    padding: 0; /* Uklanja dodatni razmak */
+    list-style-type: none; 
+    padding: 0; 
     margin: 0;
   }
   
-  /* Animacija skrolovanja */
+  
   @keyframes scroll {
     0% {
       transform: translateY(200%);
     }
     100% {
-      transform: translateY(-100%); /* Skroluje tekst za 100% visine unutar battle-history-content */
+      transform: translateY(-100%); 
     }
   }
   

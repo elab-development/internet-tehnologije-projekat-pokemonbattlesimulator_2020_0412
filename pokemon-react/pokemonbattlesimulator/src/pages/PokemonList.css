@@ -1,0 +1,108 @@
+
+.pokemon-list-container {
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+    font-family: 'Poppins', sans-serif; 
+}
+
+
+.pokemon-list-container.light-theme {
+    background: #ede8dd; 
+}
+
+
+.pokemon-list-container.dark-theme {
+    background: #2e2e2e;
+}
+
+  
+  .pokemon-header {
+    width: 80%;
+    height: 200px; 
+    background-image: url('output-onlinepngtools.png'); 
+    background-size: cover; 
+    background-position: center; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    margin-bottom: 20px; 
+    margin-left: auto;
+    margin-right: auto; 
+  }
+  
+  .pokemon-list {
+    list-style: none;
+    padding: 0;
+    max-height: 600px; 
+    overflow-y: auto; 
+  }
+  
+
+.pokemon-items {
+    margin-bottom: 20px;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+    transition: background 0.3s, transform 0.3s; 
+    text-align: center; 
+}
+
+
+.pokemon-items {
+    border: 1px solid #f46d0c;
+    background: #f7bc0c; 
+}
+
+.pokemon-items:hover {
+    background: #fbc362; 
+}
+
+.pokemon-items h2 {
+    font-family: 'Press Start 2P', cursive; 
+    color: #0e71da; 
+}
+
+.pokemon-items p {
+    color: #333; 
+}
+
+.pokemon-items button {
+    font-family: 'Press Start 2P', cursive; 
+    background-color: #0e71da;
+    color: white;
+}
+
+.pokemon-items button:hover {
+    background-color: #0056b3;
+}
+
+
+.pokemon-items.dark-theme {
+    border: 1px solid #ffcc00; 
+    background: #ff66b2; 
+}
+
+.pokemon-items.dark-theme:hover {
+    background: #ff3385; 
+}
+
+.pokemon-items.dark-theme h2 {
+    color: #ffff00; 
+}
+
+.pokemon-items.dark-theme p {
+    color: #ffff99; 
+}
+
+.pokemon-items.dark-theme button {
+    background-color: #ffcc00;
+    color: black;
+}
+
+.pokemon-items.dark-theme button:hover {
+    background-color: #ffaa00;
+}
+
+

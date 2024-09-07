@@ -6,7 +6,7 @@ const UserProfile = () => {
   const [userData, setUserData] = useState(null);
 
   useEffect(() => {
-    // Simulate user data fetching
+    
     const fakeUserData = {
       id: 1,
       username: 'User',
@@ -25,7 +25,7 @@ const UserProfile = () => {
         'Charizard vs Gyarados',
         'Bulbasaur vs Vileplume'
       ],
-      avatar: '', // Empty if user doesn't have one
+      avatar: '', 
       pokemon: ['Pikachu', 'Charizard', 'Bulbasaur']
     };
 
@@ -33,7 +33,7 @@ const UserProfile = () => {
   }, []);
 
   if (!userData) {
-    return <div className="loading-spinner"></div>; // Loading spinner while data is fetched
+    return <div className="loading-spinner"></div>; 
   }
 
   return (
@@ -42,7 +42,7 @@ const UserProfile = () => {
         <img src={userData.avatar} alt="Profile Avatar" className="profile-avatar" />
       ) : (
         <div className="profile-avatar profile-avatar-default">
-          {userData.username.charAt(0).toUpperCase()} {/* User initial */}
+          {userData.username.charAt(0).toUpperCase()} 
         </div>
       )}
 
@@ -60,7 +60,7 @@ const UserProfile = () => {
           {userData.pokemon.length > 0 ? (
             userData.pokemon.map((poke, index) => (
               <li key={index} className="pokemon-item">
-                <Link to="/pokemon-list">{poke}</Link> {/* Link to Pokémon list */}
+                <Link to="/pokemon-list">{poke}</Link> 
               </li>
             ))
           ) : (
@@ -77,7 +77,7 @@ const UserProfile = () => {
         <li key={index} className="pokemon-item">
           {poke}
           <div className="progress-container">
-            {/* Različite vrednosti za napunjenost progress bara */}
+            
             <div className="progress-bar" style={{ width: `${Math.floor(Math.random() * 100)}%` }}></div> 
           </div>
         </li>
