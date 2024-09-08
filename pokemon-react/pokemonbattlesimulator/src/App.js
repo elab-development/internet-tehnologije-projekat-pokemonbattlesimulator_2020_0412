@@ -12,6 +12,7 @@ import ItemStore from './pages/ItemStore';
 import BattleRules from './pages/BattleRules';
 import ArenaPage from './pages/ArenaPage';
 import './App.css';
+import ListOfPokemons from './pages/ListOfPokemons';
 
 const App = () => {
 
@@ -34,6 +35,7 @@ const App = () => {
           <li><Link to="/itemstore">ItemStore</Link></li>
           <li><Link to="/battlerules">BattleRules</Link></li>
           <li><Link to="/themesettings">ThemeSettings</Link></li>
+          <li><Link to="/listofpokemons">ListOfPokemons</Link></li>
         </ul>
       </nav>
       <main>
@@ -48,6 +50,7 @@ const App = () => {
           <Route path="/itemstore" element={<ItemStore />} />
           <Route path="/battlerules" element={<BattleRules />} />
           <Route path="/themesettings" element={<ThemeSettings />} />
+          <Route path="/listofpokemons" element={<ListOfPokemons />} />
         </Routes>
       </main>
     </Router>
