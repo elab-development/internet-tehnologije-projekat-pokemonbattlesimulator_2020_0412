@@ -1,0 +1,102 @@
+.arena-container {
+    width: 60%;
+    margin: 0 auto;
+    text-align: center;
+    background-color: #f8f9fa;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    font-size: 2.5em;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.pokemon-info {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+}
+
+.pokemon {
+    background-color: #ffeb3b;
+    padding: 15px;
+    border-radius: 8px;
+    width: 40%;
+}
+
+.pokemon h2 {
+    font-size: 1.8em;
+    margin-bottom: 10px;
+}
+
+.pokemon p {
+    font-size: 1.4em;
+}
+
+.start-round-btn, .reset-battle-btn {
+    background-color: #4caf50;
+    color: white;
+    padding: 10px 20px;
+    font-size: 1.2em;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 10px;
+}
+
+.start-round-btn:disabled {
+    background-color: #d3d3d3;
+    cursor: not-allowed;
+}
+
+.reset-battle-btn {
+    background-color: #f44336;
+}
+
+.start-round-btn:hover {
+    background-color: #45a049;
+}
+
+.reset-battle-btn:hover {
+    background-color: #d32f2f;
+}
+
+.battle-stats {
+    margin-bottom: 20px;
+}
+
+.battle-stats h3 {
+    font-size: 1.8em;
+    color: #333;
+}
+
+.battle-stats p {
+    font-size: 1.2em;
+}
+
+.battle-log {
+    background-color: #f1f1f1;
+    padding: 15px;
+    border-radius: 8px;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.battle-log h3 {
+    font-size: 1.8em;
+    margin-bottom: 10px;
+}
+
+.battle-log ul {
+    list-style-type: none;
+    padding: 0;
+    font-size: 1.1em;
+}
+
+.battle-log li {
+    margin-bottom: 8px;
+    font-family: monospace;
+}

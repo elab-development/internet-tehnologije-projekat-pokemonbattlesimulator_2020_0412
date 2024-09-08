@@ -10,6 +10,7 @@ import PokemonList from './pages/PokemonList';
 import RankingTable from './pages/RankingTable';
 import ItemStore from './pages/ItemStore';
 import BattleRules from './pages/BattleRules';
+import ArenaPage from './pages/ArenaPage';
 import './App.css';
 
 const App = () => {
@@ -26,6 +27,7 @@ const App = () => {
           <li><Link to="/">Home</Link></li>
           <li><Link to="/login">Login</Link></li>
           <li><Link to="/battle">Battle</Link></li>
+          <li><Link to="/arena">Arena</Link></li>
           <li><Link to="/rankingtable">RankingTable</Link></li>
           <li><Link to="/userprofile">UserProfile</Link></li>
           <li><Link to="/pokemon-list">PokemonList</Link></li>
@@ -39,6 +41,7 @@ const App = () => {
           <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/battle" element={<BattlePage />} />
+          <Route path="/arena" element={<ArenaPage />} />
           <Route path="/rankingtable" element={<RankingTable />} />
           <Route path="/userprofile" element={<UserProfile />} />
           <Route path="/pokemon-list" element={<PokemonList />} />
