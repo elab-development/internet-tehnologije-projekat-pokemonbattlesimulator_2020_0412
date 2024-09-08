@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import usePokemonList from './hooks/usePokemonList';
 import './PokemonList.css'; 
 
-
-const mockPokemons = [
+const initialPokemons = [
   { id: 1, name: 'Bulbasaur', stats: 'HP: 45, Attack: 49, Defense: 49', abilities: ['Overgrow', 'Chlorophyll'] },
   { id: 2, name: 'Charmander', stats: 'HP: 39, Attack: 52, Defense: 43', abilities: ['Blaze', 'Solar Power'] },
   { id: 3, name: 'Squirtle', stats: 'HP: 44, Attack: 48, Defense: 65', abilities: ['Torrent', 'Rain Dish'] },
@@ -32,16 +32,21 @@ const mockPokemons = [
 ];
 
 const PokemonList = () => {
-  const [pokemons, setPokemons] = useState([]);
+  const { pokemons, addPokemon } = usePokemonList(initialPokemons);
   const [favorites, setFavorites] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedAbility, setSelectedAbility] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const [pokemonsPerPage] = useState(5);
 
-  useEffect(() => {
-    setPokemons(mockPokemons);
-  }, []);
+  // Stanja za dodavanje novog Pokémon-a
+  const [newPokemonName, setNewPokemonName] = useState('');
+  const [newPokemonStats, setNewPokemonStats] = useState({
+    hp: '',
+    attack: '',
+    defense: ''
+  });
+  const [newPokemonAbilities, setNewPokemonAbilities] = useState('');
 
   const handleSearchChange = (e) => {
     setSearchTerm(e.target.value);
@@ -51,6 +56,20 @@ const PokemonList = () => {
   const handleAbilityChange = (e) => {
     setSelectedAbility(e.target.value);
     setCurrentPage(1); // Resetuj stranicu na prvu kad se menja filter sposobnosti
+  };
+
+  const handleAddPokemon = () => {
+    if (newPokemonName && newPokemonStats.hp && newPokemonStats.attack && newPokemonStats.defense) {
+      addPokemon({
+        name: newPokemonName,
+        stats: `HP: ${newPokemonStats.hp}, Attack: ${newPokemonStats.attack}, Defense: ${newPokemonStats.defense}`,
+        abilities: newPokemonAbilities.split(',').map(ability => ability.trim())
+      });
+      // Resetovanje formi nakon dodavanja
+      setNewPokemonName('');
+      setNewPokemonStats({ hp: '', attack: '', defense: '' });
+      setNewPokemonAbilities('');
+    }
   };
 
   const filteredPokemons = pokemons.filter(pokemon => 
@@ -78,6 +97,40 @@ const PokemonList = () => {
 
   return (
     <div className="pokemon-list-container">
+      <div className="pokemon-form">
+        <h2>Add New Pokémon</h2>
+        <input 
+          type="text" 
+          placeholder="Name" 
+          value={newPokemonName}
+          onChange={(e) => setNewPokemonName(e.target.value)}
+        />
+        <input 
+          type="number" 
+          placeholder="HP" 
+          value={newPokemonStats.hp}
+          onChange={(e) => setNewPokemonStats({...newPokemonStats, hp: e.target.value})}
+        />
+        <input 
+          type="number" 
+          placeholder="Attack" 
+          value={newPokemonStats.attack}
+          onChange={(e) => setNewPokemonStats({...newPokemonStats, attack: e.target.value})}
+        />
+        <input 
+          type="number" 
+          placeholder="Defense" 
+          value={newPokemonStats.defense}
+          onChange={(e) => setNewPokemonStats({...newPokemonStats, defense: e.target.value})}
+        />
+        <input 
+          type="text" 
+          placeholder="Abilities (comma separated)" 
+          value={newPokemonAbilities}
+          onChange={(e) => setNewPokemonAbilities(e.target.value)}
+        />
+        <button onClick={handleAddPokemon}>Add Pokémon</button>
+      </div>
       <div className="pokemon-filters">
         <input 
           type="text" 
@@ -87,7 +140,7 @@ const PokemonList = () => {
         />
         <select value={selectedAbility} onChange={handleAbilityChange}>
           <option value="">All Abilities</option>
-          {Array.from(new Set(mockPokemons.flatMap(p => p.abilities))).map(ability => (
+          {Array.from(new Set(pokemons.flatMap(p => p.abilities))).map(ability => (
             <option key={ability} value={ability}>{ability}</option>
           ))}
         </select>
