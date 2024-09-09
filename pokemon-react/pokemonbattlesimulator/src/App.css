@@ -38,24 +38,24 @@
 }
 
 
-/* src/App.css */
+
 body {
   margin: 0;
   font-family: Arial, sans-serif;
 }
 
-/* src/App.css */
+
 nav {
   background-color: #2b2d34;
   padding: 5px 5px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
   display: flex;
-  justify-content: flex-start; /* Prikazivanje sadržaja sa leve strane */
+  justify-content: flex-start; 
   align-items: center;
-  overflow-x: auto; /* Omogućava horizontalno skrolovanje */
-  white-space: nowrap; /* Sprečava prelamanje stavki u novi red */
-  scrollbar-width: thin; /* Za kontrolu širine skrolbara u Firefoxu */
-  scrollbar-color: #888 #2b2d34; /* Boja skrolbara i pozadine u Firefoxu */
+  overflow-x: auto; 
+  white-space: nowrap;
+  scrollbar-width: thin; 
+  scrollbar-color: #888 #2b2d34; 
 }
 
 nav ul {
@@ -66,7 +66,7 @@ nav ul {
 }
 
 nav ul li {
-  margin: 0 15px; /* Smanjena margina za bolji prikaz */
+  margin: 0 15px; 
 }
 
 nav ul li a {

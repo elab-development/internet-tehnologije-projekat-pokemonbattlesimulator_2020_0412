@@ -1,4 +1,4 @@
-/* Glavni kontejner za listu Pokemona */
+
 .pokemon-list-container {
     padding: 20px;
     border-radius: 10px;
@@ -6,17 +6,17 @@
     font-family: 'Poppins', sans-serif; 
 }
 
-/* Svetla tema */
+
 .pokemon-list-container.light-theme {
     background: #ede8dd; 
 }
 
-/* Tamna tema */
+
 .pokemon-list-container.dark-theme {
     background: #2e2e2e;
 }
 
-/* Header za listu Pokemona */
+
 .pokemon-header {
     width: 80%;
     height: 200px; 
@@ -32,7 +32,7 @@
     margin-right: auto; 
 }
 
-/* Lista Pokemona */
+
 .pokemon-list {
     list-style: none;
     padding: 0;
@@ -40,7 +40,7 @@
     overflow-y: auto; 
 }
 
-/* Stil za svaki Pokemon */
+
 .pokemon-items {
     margin-bottom: 20px;
     padding: 15px;
@@ -52,23 +52,23 @@
     background: #f7bc0c; 
 }
 
-/* Hover efekat za Pokemone */
+
 .pokemon-items:hover {
     background: #fbc362; 
 }
 
-/* Stil za naslov Pokemona */
+
 .pokemon-items h2 {
     font-family: 'Press Start 2P', cursive; 
     color: #0e71da; 
 }
 
-/* Stil za tekst Pokemona */
+
 .pokemon-items p {
     color: #333; 
 }
 
-/* Stil za dugme Pokemona */
+
 .pokemon-items button {
     font-family: 'Press Start 2P', cursive; 
     background-color: #0e71da;
@@ -79,45 +79,44 @@
     cursor: pointer;
 }
 
-/* Hover efekat za dugme Pokemona */
+
 .pokemon-items button:hover {
     background-color: #0056b3;
 }
 
-/* Tamna tema - stilovi za Pokemone */
+
 .pokemon-items.dark-theme {
     border: 1px solid #ffcc00; 
     background: #ff66b2; 
 }
 
-/* Hover efekat za tamnu temu */
 .pokemon-items.dark-theme:hover {
     background: #ff3385; 
 }
 
-/* Stil za naslov Pokemona u tamnoj temi */
+
 .pokemon-items.dark-theme h2 {
     color: #ffff00; 
 }
 
-/* Stil za tekst Pokemona u tamnoj temi */
+
 .pokemon-items.dark-theme p {
     color: #ffff99; 
 }
 
-/* Stil za dugme Pokemona u tamnoj temi */
+
 .pokemon-items.dark-theme button {
     background-color: #ffcc00;
     color: black;
     border: none;
 }
 
-/* Hover efekat za dugme Pokemona u tamnoj temi */
+
 .pokemon-items.dark-theme button:hover {
     background-color: #ffaa00;
 }
 
-/* Stil za paginaciju */
+
 .pagination {
     display: flex;
     justify-content: center;

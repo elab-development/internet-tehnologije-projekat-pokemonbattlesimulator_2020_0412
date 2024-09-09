@@ -39,7 +39,7 @@ const PokemonList = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [pokemonsPerPage] = useState(5);
 
-  // Stanja za dodavanje novog Pokémon-a
+  
   const [newPokemonName, setNewPokemonName] = useState('');
   const [newPokemonStats, setNewPokemonStats] = useState({
     hp: '',
@@ -50,12 +50,12 @@ const PokemonList = () => {
 
   const handleSearchChange = (e) => {
     setSearchTerm(e.target.value);
-    setCurrentPage(1); // Resetuj stranicu na prvu kad se menja pretraga
+    setCurrentPage(1); 
   };
 
   const handleAbilityChange = (e) => {
     setSelectedAbility(e.target.value);
-    setCurrentPage(1); // Resetuj stranicu na prvu kad se menja filter sposobnosti
+    setCurrentPage(1); 
   };
 
   const handleAddPokemon = () => {
@@ -65,7 +65,7 @@ const PokemonList = () => {
         stats: `HP: ${newPokemonStats.hp}, Attack: ${newPokemonStats.attack}, Defense: ${newPokemonStats.defense}`,
         abilities: newPokemonAbilities.split(',').map(ability => ability.trim())
       });
-      // Resetovanje formi nakon dodavanja
+      
       setNewPokemonName('');
       setNewPokemonStats({ hp: '', attack: '', defense: '' });
       setNewPokemonAbilities('');
@@ -77,7 +77,7 @@ const PokemonList = () => {
     (selectedAbility === '' || pokemon.abilities.includes(selectedAbility))
   );
 
-  // Paginacija
+ 
   const indexOfLastPokemon = currentPage * pokemonsPerPage;
   const indexOfFirstPokemon = indexOfLastPokemon - pokemonsPerPage;
   const currentPokemons = filteredPokemons.slice(indexOfFirstPokemon, indexOfLastPokemon);

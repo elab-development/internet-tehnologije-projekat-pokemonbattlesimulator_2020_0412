@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 import { useTable, useSortBy, usePagination, useGlobalFilter } from 'react-table';
 import './RankingTable.css';
 
-// Global Filter komponenta
+
 const GlobalFilter = ({ filter, setFilter }) => (
   <span>
     Search: 
@@ -15,7 +15,7 @@ const GlobalFilter = ({ filter, setFilter }) => (
 );
 
 const RankingTable = () => {
-  // Podaci o Pokémon-ima
+  
   const data = useMemo(
     () => [
       { rank: 1, name: 'Pikachu', wins: 25, points: 2000 },
@@ -42,7 +42,7 @@ const RankingTable = () => {
     []
   );
 
-  // Kolone za tabelu
+  
   const columns = useMemo(
     () => [
       {
@@ -68,7 +68,7 @@ const RankingTable = () => {
     []
   );
 
-  // React-Table Hooks
+  
   const {
     getTableProps,
     getTableBodyProps,
@@ -89,7 +89,7 @@ const RankingTable = () => {
     { 
       columns, 
       data, 
-      initialState: { pageIndex: 0, pageSize: 10 } // Postavi broj redova po stranici na 10
+      initialState: { pageIndex: 0, pageSize: 10 } 
     },
     useGlobalFilter,
     useSortBy,

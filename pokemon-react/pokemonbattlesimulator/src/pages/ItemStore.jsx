@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './ItemStore.css'; // Uverite se da CSS fajl sadrži odgovarajuće stilove
+import './ItemStore.css'; 
 import potionImage from '../picsforshops/potion.jpg';
 import superPotionImage from '../picsforshops/superpotion.png';
 import hyperPotionImage from '../picsforshops/hyperpotion.png';

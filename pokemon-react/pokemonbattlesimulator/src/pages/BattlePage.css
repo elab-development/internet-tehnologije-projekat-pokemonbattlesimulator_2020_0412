@@ -4,12 +4,12 @@
   }
   
   .pokemon-selection h2 {
-    margin-bottom: 40px; /* Veći razmak ispod naslova */
-    font-family: 'Press Start 2P', cursive; /* Retro font za naslov */
-    font-size: 50px; /* Veći font za naslov */
-    color: #f39c12; /* Boja naslova */
-    text-shadow: 0 0 10px #f39c12; /* Svetlucanje naslova */
-    animation: glow 1.5s ease-in-out infinite; /* Animacija svetlucanja */
+    margin-bottom: 40px; 
+    font-family: 'Press Start 2P', cursive; 
+    font-size: 50px;
+    color: #f39c12; 
+    text-shadow: 0 0 10px #f39c12; 
+    animation: glow 1.5s ease-in-out infinite; 
   }
   
   @keyframes glow {
@@ -20,12 +20,12 @@
   
   .pokemon-container {
     display: flex;
-    overflow-x: auto; /* Omogućava horizontalno skrolovanje */
-    padding: 20px; /* Veće unutrašnje margine */
+    overflow-x: auto; 
+    padding: 20px; 
     width: 100%;
-    scroll-behavior: smooth; /* Glatko skrolovanje */
+    scroll-behavior: smooth; 
     position: relative;
-    margin-bottom: 40px; /* Veći razmak ispod slika Pokémon-a */
+    margin-bottom: 40px; 
   }
   
   .pokemon-item {
@@ -37,46 +37,46 @@
   }
   
   .pokemon-item img {
-    width: 150px; /* Standardna veličina slika */
+    width: 150px; 
     height: 150px;
-    object-fit: contain; /* Osigurava da slike ne budu izdužene i da budu vidljive u celosti */
+    object-fit: contain; 
   }
   
   .pokemon-item.selected {
-    transform: scale(1.2); /* Povećava sliku kada je selektovana */
-    border: 2px solid #f7f3f3; /* Dodaje okvir oko selektovane slike */
+    transform: scale(1.2); 
+    border: 2px solid #f7f3f3; 
   }
   
-  /* Stilizovanje skrol bara kao Pokemon lopta */
+ 
   .pokemon-container::-webkit-scrollbar {
-    height: 100px; /* Visina skrol bara */
+    height: 100px; 
   }
   
   .pokemon-container::-webkit-scrollbar-track {
-    background: transparent; /* Bez pozadine na trakama skrola */
+    background: transparent; 
   }
   
   .pokemon-container::-webkit-scrollbar-thumb {
     background: url('../assets/images/pokeball-pokeball-clip-art-png-clipart-transformed.png') no-repeat center center;
-    background-size: 90px 90px; /* Podesite veličinu lopte */
+    background-size: 90px 90px; 
     border-radius: 50%;
-    border: 2px solid #f7f3f3; /* Bele ivice oko lopte */
+    border: 2px solid #f7f3f3;
   }
   
   .pokemon-container::-webkit-scrollbar-thumb:hover {
     background: url('../assets/images/pokeball-pokeball-clip-art-png-clipart-transformed.png') no-repeat center center;
     background-size: 50px 50px;
-    opacity: 0.8; /* Smanjena providnost pri prelazu miša */
+    opacity: 0.8; 
   }
   
   .start-battle {
-    margin-top: 20px; /* Veći razmak iznad dugmeta */
-    background-color: #f39c12; /* Boja pozadine dugmeta */
-    border: 2px solid #e67e22; /* Boja obruba dugmeta */
-    border-radius: 12px; /* Zaobljeni uglovi */
-    padding: 20px 60px; /* Povećane unutrašnje margine za veće dugme */
-    font-family: 'Press Start 2P', cursive; /* Retro font */
-    font-size: 24px; /* Veći font za vidljivost */
+    margin-top: 20px; 
+    background-color: #f39c12; 
+    border: 2px solid #e67e22; 
+    border-radius: 12px; 
+    padding: 20px 60px; 
+    font-family: 'Press Start 2P', cursive; 
+    font-size: 24px; 
     color: #fff;
     cursor: pointer;
     transition: background-color 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
@@ -93,7 +93,7 @@
   }
   
   .start-battle:active {
-    transform: scale(0.95); /* Povećava dugme kada se klikne */
+    transform: scale(0.95); 
   }
   
   

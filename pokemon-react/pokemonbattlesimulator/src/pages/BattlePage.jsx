@@ -28,70 +28,70 @@ const BattlePage = () => {
               onClick={() => handlePokemonClick(1)}
             >
               <img src={pokemonImage1} alt="Pokémon 1" />
-              <p>Pokémon 1</p>
+              <p>Pikachu</p>
             </div>
             <div 
               className={`pokemon-item ${selectedPokemon === 2 ? 'selected' : ''}`}
               onClick={() => handlePokemonClick(2)}
             >
               <img src={pokemonImage2} alt="Pokémon 2" />
-              <p>Pokémon 2</p>
+              <p>Bulbasaur</p>
             </div>
             <div 
               className={`pokemon-item ${selectedPokemon === 3 ? 'selected' : ''}`}
               onClick={() => handlePokemonClick(3)}
             >
               <img src={pokemonImage3} alt="Pokémon 3" />
-              <p>Pokémon 3</p>
+              <p>Charmander</p>
             </div>
             <div 
               className={`pokemon-item ${selectedPokemon === 4 ? 'selected' : ''}`}
               onClick={() => handlePokemonClick(4)}
             >
               <img src={pokemonImage4} alt="Pokémon 4" />
-              <p>Pokémon 4</p>
+              <p>Squirtle</p>
             </div>
             <div 
               className={`pokemon-item ${selectedPokemon === 5 ? 'selected' : ''}`}
               onClick={() => handlePokemonClick(5)}
             >
               <img src={pokemonImage5} alt="Pokémon 5" />
-              <p>Pokémon 5</p>
+              <p>Turtwig</p>
             </div>
             <div 
               className={`pokemon-item ${selectedPokemon === 6 ? 'selected' : ''}`}
               onClick={() => handlePokemonClick(6)}
             >
               <img src={pokemonImage6} alt="Pokémon 6" />
-              <p>Pokémon 6</p>
+              <p>Totodile</p>
             </div>
             <div 
               className={`pokemon-item ${selectedPokemon === 7 ? 'selected' : ''}`}
               onClick={() => handlePokemonClick(7)}
             >
               <img src={pokemonImage7} alt="Pokémon 7" />
-              <p>Pokémon 7</p>
+              <p>Mudkip</p>
             </div>
             <div 
               className={`pokemon-item ${selectedPokemon === 8 ? 'selected' : ''}`}
               onClick={() => handlePokemonClick(8)}
             >
               <img src={pokemonImage8} alt="Pokémon 8" />
-              <p>Pokémon 8</p>
+              <p>Froakie</p>
             </div>
             <div 
               className={`pokemon-item ${selectedPokemon === 9 ? 'selected' : ''}`}
               onClick={() => handlePokemonClick(9)}
             >
               <img src={pokemonImage9} alt="Pokémon 9" />
-              <p>Pokémon 9</p>
+              <p>Chimchar</p>
             </div>
             <div 
               className={`pokemon-item ${selectedPokemon === 10 ? 'selected' : ''}`}
               onClick={() => handlePokemonClick(10)}
             >
               <img src={pokemonImage10} alt="Pokémon 10" />
-              <p>Pokémon 10</p>
+              <p>Rowlet</p>
             </div>
           </div>
         </div>
