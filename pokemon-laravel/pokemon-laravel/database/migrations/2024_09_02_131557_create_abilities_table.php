@@ -17,8 +17,8 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('type');
-            $table->text('description'); // Dodajte opis sposobnosti
-            $table->foreignId('pokemon_id')->constrained()->onDelete('cascade'); // Spoljni ključ za Pokemon
+            $table->text('description'); 
+            $table->foreignId('pokemon_id')->constrained()->onDelete('cascade'); 
             $table->timestamps();
         });
     }

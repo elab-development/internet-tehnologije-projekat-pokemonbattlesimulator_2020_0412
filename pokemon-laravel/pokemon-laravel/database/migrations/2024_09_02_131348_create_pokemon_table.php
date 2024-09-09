@@ -16,12 +16,12 @@ return new class extends Migration
         Schema::create('pokemon', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('type'); // Dodajte ovu kolonu za vrstu Pokemona
-            $table->integer('hp'); // Dodajte ovu kolonu za HP
-            $table->integer('attack'); // Dodajte ovu kolonu za Attack
-            $table->integer('defense'); // Dodajte ovu kolonu za Defense
-            $table->integer('speed'); // Dodajte ovu kolonu za Speed
-            $table->foreignId('user_id')->constrained()->onDelete('cascade'); // Dodajte spoljni ključ za korisnika
+            $table->string('type'); 
+            $table->integer('hp'); 
+            $table->integer('attack'); 
+            $table->integer('defense'); 
+            $table->integer('speed'); 
+            $table->foreignId('user_id')->constrained()->onDelete('cascade'); 
             $table->timestamps();
         });
     }

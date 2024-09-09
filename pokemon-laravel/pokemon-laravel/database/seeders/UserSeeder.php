@@ -5,30 +5,41 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use App\Models\User;
 use Spatie\Permission\Models\Role;
+use Illuminate\Support\Facades\Hash;
 
 class UserSeeder extends Seeder
-{
-    public function run()
     {
-        $adminRole = Role::where('name', 'admin')->first();
-        $userRole = Role::where('name', 'user')->first();
-        $guestRole = Role::where('name', 'guest')->first();
+    public function run ()
+        {
 
-        $adminUser = User::find(1);
-        if ($adminUser) {
-            $adminUser->assignRole($adminRole);
-        }
+        $adminRole = Role::firstOrCreate ( [ 'name' => 'admin' ] );
+        $userRole  = Role::firstOrCreate ( [ 'name' => 'user' ] );
+        $guestRole = Role::firstOrCreate ( [ 'name' => 'guest' ] );
 
-        $user = User::find(2);
-        if ($user) {
-            $user->assignRole($userRole);
-        }
 
-        $guest = User::find(3);
-        if ($guest) {
-            $guest->assignRole($guestRole);
+        User::updateOrCreate (
+            [ 'email' => 'admin@example.com' ],
+            [ 
+                'name'     => 'Admin User',
+                'password' => Hash::make ( 'adminpassword' ),
+            ],
+        )->assignRole ( $adminRole );
+
+
+        User::updateOrCreate (
+            [ 'email' => 'aleksandra123@example.com' ],
+            [ 
+                'name'     => 'aleksandra',
+                'password' => Hash::make ( 'pokemoni123' ),
+            ],
+        )->assignRole ( $adminRole );
+
+        User::updateOrCreate (
+            [ 'email' => 'miona123@example.com' ],
+            [ 
+                'name'     => 'miona',
+                'password' => Hash::make ( 'pikacu123' ),
+            ],
+        )->assignRole ( $adminRole );
         }
     }
-}
-
-

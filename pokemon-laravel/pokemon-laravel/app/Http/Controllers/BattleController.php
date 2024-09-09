@@ -6,92 +6,115 @@ use App\Models\Battle;
 use Illuminate\Http\Request;
 
 class BattleController extends Controller
-{
-    public function index()
     {
-        return response()->json(Battle::all());
-    }
-
-    public function store(Request $request)
-    {
-        $pokemon = Battle::create($request->all());
-        return response()->json($pokemon, 201);
-    }
-
-    public function show($id)
-    {
-        $battle = Battle::find($id);
-
-        if (!$battle) {
-            return response()->json(['message' => 'Battle not found'], 404);
+    public function __construct ()
+        {
+        $this->authorizeResource ( Battle::class, 'battle' );
         }
 
-        return response()->json($battle);
-    }
 
-    public function update(Request $request, $id)
-    {
-        $battle = Battle::find($id);
+    public function index ()
+        {
+        $this->authorize ( 'viewAny', Battle::class);
 
-        if (!$battle) {
-            return response()->json(['message' => 'Battle not found'], 404);
+        return response ()->json ( Battle::all () );
         }
 
-        $request->validate([
-            'pokemon_1_id' => 'sometimes|exists:pokemons,id',
-            'pokemon_2_id' => 'sometimes|exists:pokemons,id',
-            'result' => 'sometimes|string',
-        ]);
 
-        $battle->update($request->all());
+    public function store ( Request $request )
+        {
+        $this->authorize ( 'create', Battle::class);
 
-        return response()->json($battle);
-    }
+        $validatedData = $request->validate ( [ 
+            'pokemon1_id' => 'required|exists:pokemons,id',
+            'pokemon2_id' => 'required|exists:pokemons,id',
+            'winner'      => 'nullable|exists:pokemons,id',
+            'duration'    => 'nullable|integer',
+            'location'    => 'nullable|string',
+        ] );
 
-    public function destroy($id)
-    {
-        $battle = Battle::find($id);
-
-        if (!$battle) {
-            return response()->json(['message' => 'Battle not found'], 404);
+        $battle = Battle::create ( $validatedData );
+        return response ()->json ( $battle, 201 );
         }
 
-        $battle->delete();
 
-        return response()->json(['message' => 'Battle deleted successfully']);
-    }
+    public function show ( $id )
+        {
+        $this->authorize ( 'view', Battle::findOrFail ( $id ) );
 
-    public function getBattlesForPokemon1($pokemon_id)
-    {
-        $battles = Battle::where('pokemon1_id', $pokemon_id)->get();
-
-        if ($battles->isEmpty()) {
-            return response()->json(['message' => 'No battles found for this Pokémon'], 404);
+        $battle = Battle::findOrFail ( $id );
+        return response ()->json ( $battle );
         }
 
-        return response()->json($battles);
-    }
 
-    public function getBattlesForPokemon2($pokemon_id)
-    {
-        $battles = Battle::where('pokemon2_id', $pokemon_id)->get();
+    public function update ( Request $request, $id )
+        {
+        $this->authorize ( 'update', Battle::findOrFail ( $id ) );
 
-        if ($battles->isEmpty()) {
-            return response()->json(['message' => 'No battles found for this Pokémon'], 404);
+        $battle = Battle::findOrFail ( $id );
+
+        $validatedData = $request->validate ( [ 
+            'pokemon1_id' => 'sometimes|exists:pokemons,id',
+            'pokemon2_id' => 'sometimes|exists:pokemons,id',
+            'winner'      => 'sometimes|nullable|exists:pokemons,id',
+            'duration'    => 'sometimes|nullable|integer',
+            'location'    => 'sometimes|nullable|string',
+        ] );
+
+        $battle->update ( $validatedData );
+
+        return response ()->json ( $battle );
         }
 
-        return response()->json($battles);
-    }
 
-    public function getBattlesWherePokemonWon($pokemon_id)
-    {
-        $battles = Battle::where('winner', $pokemon_id)->get();
+    public function destroy ( $id )
+        {
+        $this->authorize ( 'delete', Battle::findOrFail ( $id ) );
 
-        if ($battles->isEmpty()) {
-            return response()->json(['message' => 'No battles found where this Pokémon won'], 404);
+        $battle = Battle::findOrFail ( $id );
+        $battle->delete ();
+
+        return response ()->json ( [ 'message' => 'Battle deleted successfully' ] );
         }
 
-        return response()->json($battles);
+
+    public function getBattlesForPokemon1 ( $pokemon_id )
+        {
+        $battles = Battle::where ( 'pokemon1_id', $pokemon_id )->get ();
+
+        if ( $battles->isEmpty () )
+            {
+            return response ()->json ( [ 'message' => 'No battles found for this Pokémon' ], 404 );
+            }
+
+        return response ()->json ( $battles );
+        }
+
+
+    public function getBattlesForPokemon2 ( $pokemon_id )
+        {
+        $battles = Battle::where ( 'pokemon2_id', $pokemon_id )->get ();
+
+        if ( $battles->isEmpty () )
+            {
+            return response ()->json ( [ 'message' => 'No battles found for this Pokémon' ], 404 );
+            }
+
+        return response ()->json ( $battles );
+        }
+
+
+    public function getBattlesWherePokemonWon ( $pokemon_id )
+        {
+        $battles = Battle::where ( 'winner', $pokemon_id )->get ();
+
+        if ( $battles->isEmpty () )
+            {
+            return response ()->json ( [ 'message' => 'No battles found where this Pokémon won' ], 404 );
+            }
+
+        return response ()->json ( $battles );
+        }
     }
-}
+
 

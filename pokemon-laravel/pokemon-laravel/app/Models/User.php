@@ -10,7 +10,7 @@ use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
-{
+    {
     use HasApiTokens, HasFactory, Notifiable, HasRoles;
 
     /**
@@ -18,10 +18,11 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
+    protected $fillable = [ 
+    'name',
+    'email',
+    'password',
+    'role',
     ];
 
     /**
@@ -29,9 +30,9 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
-    protected $hidden = [
-        'password',
-        'remember_token',
+    protected $hidden = [ 
+    'password',
+    'remember_token',
     ];
 
     /**
@@ -39,14 +40,14 @@ class User extends Authenticatable
      *
      * @var array<string, string>
      */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
+    protected $casts = [ 
+    'email_verified_at' => 'datetime',
     ];
 
-    public function hasRole($role)
-{
-    return $this->roles()->where('name', $role)->exists();
-}
+    public function hasRole ( $role )
+        {
+        return $this->roles ()->where ( 'name', $role )->exists ();
+        }
 
 
-}
+    }

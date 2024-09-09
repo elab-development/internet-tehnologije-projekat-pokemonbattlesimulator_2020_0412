@@ -5,11 +5,11 @@ const PokemonTips = () => {
   const [tip, setTip] = useState('');
 
   const tips = [
-    'Uvek proveravajte zdravlje vašeg Pokémona!',
-    'Pokémoni tipa Vatra su jaki protiv Pokémona tipa Trava.',
-    'Pokémoni tipa Elektricitet imaju prednost nad Pokémonima tipa Voda.',
-    'Ne zaboravite da unapređujete nivo vaših Pokémona!',
-    'Koristite napitke da izlečite vašeg Pokémona posle bitke.'
+    "Always check your Pokémon's health!",
+    "Fire-type Pokémon are strong against Grass-type Pokémon.",
+    "Electric-type Pokémon have an advantage over Water-type Pokémon.",
+    "Don't forget to level up your Pokémon!",
+    "Use potions to heal your Pokémon after a battle."
   ];
 
   useEffect(() => {
@@ -19,7 +19,7 @@ const PokemonTips = () => {
 
   return (
     <div className="tip-container">
-      <h2>Savet dana za Pokémone</h2>
+      <h2>Daily Pokémon Tip</h2>
       <p>{tip}</p>
     </div>
   );

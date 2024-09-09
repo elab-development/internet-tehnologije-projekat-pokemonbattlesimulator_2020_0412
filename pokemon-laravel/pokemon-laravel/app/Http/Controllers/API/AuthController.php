@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Password;
-
+use Spatie\Permission\Models\Role;
 
 class AuthController extends Controller
 {
@@ -19,7 +19,7 @@ class AuthController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:8',
+            'password' => 'required|string|min:8|confirmed',
         ]);
 
         // Ako validacija ne uspe, vrati grešku
@@ -34,6 +34,9 @@ class AuthController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
+        // Dodeli ulogu korisniku. Po defaultu dodeljujemo 'user'
+        $user->assignRole('user');
+
         // Kreiraj token za korisnika
         $token = $user->createToken('auth_token')->plainTextToken;
 
@@ -41,7 +44,8 @@ class AuthController extends Controller
         return response()->json(['token' => $token, 'user' => $user], 201);
     }
 
-    public function login(Request $request) {
+    public function login(Request $request)
+    {
         $credentials = $request->only('email', 'password');
 
         if (!Auth::attempt($credentials)) {
@@ -54,17 +58,13 @@ class AuthController extends Controller
         return response()->json(['access_token' => $token, 'token_type' => 'Bearer']);
     }
 
-
-
-    public function logout(Request $request) {
+    public function logout(Request $request)
+    {
         // Dobijamo trenutno autentifikovanog korisnika
         $user = $request->user();
 
         // Brišemo sve tokene korisnika (odjava sa svih uređaja)
         $user->tokens()->delete();
-
-        // Alternativno, ako želiš obrisati samo trenutni token (odjava sa jednog uređaja):
-        // $request->user()->currentAccessToken()->delete();
 
         return response()->json(['message' => 'Successfully logged out']);
     }
@@ -106,6 +106,20 @@ class AuthController extends Controller
             : response()->json(['message' => 'Password reset failed'], 500);
     }
 
+    // Proveri ulogu pre dozvoljavanja pristupa
+    public function accessProtectedRoute(Request $request)
+    {
+        // Proverava ulogu korisnika
+        $user = $request->user();
 
+        if ($user->hasRole('admin')) {
+            return response()->json(['message' => 'Admin access granted']);
+        }
+
+        if ($user->hasRole('user')) {
+            return response()->json(['message' => 'User access granted']);
+        }
+
+        return response()->json(['message' => 'Unauthorized'], 403);
+    }
 }
-
