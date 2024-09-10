@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import './HomePage.css'; 
 import backgroundImage from './looped-pokémon-battle.gif';
 import PokemonTips from './PokemonTips';
+import { useNavigate } from 'react-router-dom';
+
 
 const HomePage = () => {
   const [selectedQuote, setSelectedQuote] = useState('');
@@ -10,13 +12,20 @@ const HomePage = () => {
     setSelectedQuote(event.target.value);
   };
 
+  const navigate = useNavigate();
+
+const handleStartBattle = () => {
+  navigate('/battle');
+};
+
+
   return (
     <div className="home-container" style={{ backgroundImage: `url(${backgroundImage})` }}>
       <header className="home-header">
         <h1 className="header-title">Welcome to the Pokémon Battle Simulator</h1>
         <PokemonTips />
         <p className="header-subtitle">Choose your Pokémon, train them, and battle against others!</p>
-        <button className="cta-button">Start Battle</button>
+        <button className="cta-button" onClick={handleStartBattle}>Start Battle</button>
       </header>
       <section className="info-section">
         <div className="info-card">

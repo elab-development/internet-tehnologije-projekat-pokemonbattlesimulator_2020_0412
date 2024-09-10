@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom'; // Importovanje useNavigate hook-a
 import './BattlePage.css';
 import pokemonImage1 from '../assets/images/large.pikachu.png.4c0ec2bef34e3bafe92c69f922a3d2b3.png';
 import pokemonImage2 from '../assets/images/large.bulbasaur.png.f765693a113acd1e064ab4eb8bf10f6f.png';
@@ -13,9 +14,14 @@ import pokemonImage10 from '../assets/images/PNG-TR_1-transformed.png';
 
 const BattlePage = () => {
     const [selectedPokemon, setSelectedPokemon] = useState(null);
+    const navigate = useNavigate(); 
 
     const handlePokemonClick = (pokemonId) => {
         setSelectedPokemon(pokemonId);
+    };
+
+    const handleStartBattle = () => {
+        navigate('/arena'); 
     };
 
     return (
@@ -95,7 +101,7 @@ const BattlePage = () => {
             </div>
           </div>
         </div>
-        <button className="start-battle">
+        <button className="start-battle" onClick={handleStartBattle}>
           Let's GO!
         </button>
       </div>
@@ -103,7 +109,3 @@ const BattlePage = () => {
   };
   
   export default BattlePage;
-
-
-
-
