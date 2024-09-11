@@ -1,145 +1,168 @@
-
 .pokemon-list-container {
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
-    font-family: 'Poppins', sans-serif; 
+    text-align: center;
 }
-
-
-.pokemon-list-container.light-theme {
-    background: #ede8dd; 
-}
-
-
-.pokemon-list-container.dark-theme {
-    background: #2e2e2e;
-}
-
-
-.pokemon-header {
-    width: 80%;
-    height: 200px; 
-    background-image: url('output-onlinepngtools.png'); 
-    background-size: cover; 
-    background-position: center; 
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 10px;
-    margin-bottom: 20px; 
-    margin-left: auto;
-    margin-right: auto; 
-}
-
 
 .pokemon-list {
-    list-style: none;
+    list-style-type: none;
     padding: 0;
-    max-height: 600px; 
-    overflow-y: auto; 
+    margin: 0;
+    width: 100%; /* Širina liste da bude 100% */
 }
 
+.pokemon-list li {
+    background-color: #FFA500; /* Narandžasta boja */
+    color: white; /* Bela boja za tekst radi bolje čitljivosti */
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 8px; /* Zaobljeni ivice */
+    list-style: none; /* Uklanja defaultne oznake liste */
+    display: flex;
+    justify-content: space-between; /* Ravnomerno razmakni sadržaj */
+    align-items: center;
+    width: 100%; /* Širina stavki liste da bude 100% */
+    box-sizing: border-box; /* Uključi padding i border u ukupnu širinu */
+}
 
-.pokemon-items {
-    margin-bottom: 20px;
-    padding: 15px;
+.pokemon-list li.favorite {
+    background-color: #FF6347; /* Tamnija narandžasta za omiljene */
+}
+
+.pokemon-card {
+    border: 1px solid #ddd;
+    padding: 20px;
+    margin: 10px auto; /* Centriraj karticu */
     border-radius: 10px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
-    transition: background 0.3s, transform 0.3s; 
-    text-align: center; 
-    border: 1px solid #f46d0c;
-    background: #f7bc0c; 
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
+    width: 100%; /* Širina kartica da bude 100% */
+    box-sizing: border-box; /* Uključi padding i border u ukupnu širinu */
+    background-color: #FFA500; /* Narandžasta boja za karticu */
 }
 
-
-.pokemon-items:hover {
-    background: #fbc362; 
+.pokemon-name {
+    font-size: 24px;
+    font-weight: bold;
+    color: #007bff; /* Plava boja za naziv Pokémona */
+    margin-bottom: 10px;
 }
 
-
-.pokemon-items h2 {
-    font-family: 'Press Start 2P', cursive; 
-    color: #0e71da; 
+.pokemon-stats, .pokemon-abilities {
+    margin-bottom: 10px;
 }
 
-
-.pokemon-items p {
-    color: #333; 
-}
-
-
-.pokemon-items button {
-    font-family: 'Press Start 2P', cursive; 
-    background-color: #0e71da;
-    color: white;
+button {
+    padding: 10px 20px;
     border: none;
-    padding: 10px 15px;
+    background-color: #007bff;
+    color: white;
     border-radius: 5px;
     cursor: pointer;
 }
 
-
-.pokemon-items button:hover {
+button:hover {
     background-color: #0056b3;
 }
 
-
-.pokemon-items.dark-theme {
-    border: 1px solid #ffcc00; 
-    background: #ff66b2; 
+.favorite .pokemon-card {
+    background-color: #ffffe0;
 }
-
-.pokemon-items.dark-theme:hover {
-    background: #ff3385; 
-}
-
-
-.pokemon-items.dark-theme h2 {
-    color: #ffff00; 
-}
-
-
-.pokemon-items.dark-theme p {
-    color: #ffff99; 
-}
-
-
-.pokemon-items.dark-theme button {
-    background-color: #ffcc00;
-    color: black;
-    border: none;
-}
-
-
-.pokemon-items.dark-theme button:hover {
-    background-color: #ffaa00;
-}
-
 
 .pagination {
     display: flex;
-    justify-content: center;
+    justify-content: center; /* Centriranje paginacije */
     margin-top: 20px;
+    padding: 0;
+    list-style: none; /* Uklanjanje defaultnog stila liste */
 }
 
-.pagination button {
-    background-color: #007bff;
+.pagination button,
+.pagination a {
+    margin: 0 85px; /* Razmak između stranica */
+    padding: 10px 15px;
+    border: 1px solid #007bff;
+    background-color: white; /* Bela pozadina za dugmad */
+    color: #007bff; /* Plava boja teksta */
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.pagination button:hover,
+.pagination a:hover {
+    background-color: #007bff; /* Plava pozadina na hover */
     color: white;
-    border: none;
-    border-radius: 4px;
+}
+
+.pagination .active a {
+    background-color: #007bff; /* Plava pozadina za aktivnu stranicu */
+    color: white;
+    border-color: #007bff;
+}
+
+
+.pokemon-form {
+    margin: 20px;
+}
+
+.pokemon-form form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px; /* Razmak između polja */
+}
+
+.pokemon-form label {
+    width: 30px; /* Širina label-a */
+    display: flex;
+    align-items: center;
+    margin-right: 42px; /* Razmak između label-a i inputa */
+}
+
+.pokemon-form input, .pokemon-form select {
+    flex: 1; /* Širina polja */
+    max-width: 120px; /* Maksimalna širina polja */
+}
+
+.pokemon-form button {
+    margin-top: 10px;
+}
+
+.pokemon-form button:hover {
+    background-color: #e65705;
+}
+
+.favorite {
+    background-color: #ffe5b4;
+    border-color: #e65705;
+}
+
+.search-filter {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px; /* Razmak između elemenata */
+    margin-bottom: 20px; /* Razmak između filtera i liste */
+}
+
+.search-filter input,
+.search-filter select {
     padding: 10px;
-    margin: 0 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    box-sizing: border-box; /* Uključi padding u ukupnu širinu */
+}
+
+.search-filter button {
+    padding: 10px 20px;
+    border: none;
+    background-color: #007bff; /* Plava boja za dugme */
+    color: white;
+    border-radius: 5px;
     cursor: pointer;
 }
 
-.pagination button.active {
-    background-color: #0056b3;
+.search-filter button:hover {
+    background-color: #0056b3; /* Tamnija plava za hover efekat */
 }
-
-.pagination button:hover {
-    background-color: #0056b3;
-}
-
 
 

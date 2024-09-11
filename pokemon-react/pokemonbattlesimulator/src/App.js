@@ -13,6 +13,8 @@ import BattleRules from './pages/BattleRules';
 import ArenaPage from './pages/ArenaPage';
 import './App.css';
 import ListOfPokemons from './pages/ListOfPokemons';
+import PrivateRoute from './pages/PrivateRoute'; 
+
 
 const App = () => {
 
