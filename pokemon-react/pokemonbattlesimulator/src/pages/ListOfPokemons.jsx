@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './ListOfPokemons.css';  
@@ -7,10 +6,17 @@ const ListOfPokemons = () => {
   const [pokemons, setPokemons] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  
+  const token = localStorage.getItem('authToken'); 
+
   useEffect(() => {
     const fetchPokemons = async () => {
       try {
-        const response = await axios.get('https://pokeapi.co/api/v2/pokemon?limit=10');
+        const response = await axios.get('http://127.0.0.1:8000/api/pokemon-data', {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
         setPokemons(response.data.results);
       } catch (error) {
         console.error('Error fetching Pokémon data:', error);
@@ -20,7 +26,7 @@ const ListOfPokemons = () => {
     };
 
     fetchPokemons();
-  }, []);
+  }, [token]);
 
   return (
     <div className="pokemon-list-container">
