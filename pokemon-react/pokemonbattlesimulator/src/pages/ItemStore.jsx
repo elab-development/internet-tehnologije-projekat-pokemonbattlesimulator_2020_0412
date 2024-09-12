@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './ItemStore.css'; 
 import potionImage from '../picsforshops/potion.jpg';
 import superPotionImage from '../picsforshops/superpotion.png';
@@ -17,6 +17,7 @@ import stone10Image from '../picsforshops/stone10.png';
 import coinsImage from '../picsforshops/coins.png'; 
 import hpImage from '../picsforshops/hp.png'; 
 
+
 const ItemStore = () => {
   const [playerLevel, setPlayerLevel] = useState(3);
   const [coins, setCoins] = useState(1000);
@@ -25,6 +26,15 @@ const ItemStore = () => {
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 6;
+
+  const [newItem, setNewItem] = useState({
+    name: '',
+    description: '',
+    price: '',
+    category: 'potion',
+    image: null,
+    
+  });
 
   const items = [
     { id: 1, name: 'Potion', description: 'Heals your Pokemon by 20 HP.', price: 100, image: potionImage, unlockLevel: 1, category: 'potion' },
@@ -43,6 +53,7 @@ const ItemStore = () => {
     { id: 14, name: 'Evolutionary Stone 10', description: 'Evolves certain Pokemon.', price: 1400, image: stone10Image, unlockLevel: 7, category: 'stone' },
   ];
 
+
   const filteredItems = items.filter(item => 
     (selectedCategory === 'all' || item.category === selectedCategory)
   );
@@ -50,6 +61,12 @@ const ItemStore = () => {
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = filteredItems.slice(indexOfFirstItem, indexOfLastItem);
+
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
+
+
+
 
   const handleCategoryChange = (category) => {
     setSelectedCategory(category);
@@ -93,68 +110,222 @@ const ItemStore = () => {
     }
   };
 
+
+  const handleChange = (e) => {
+    const { name, value, files } = e.target;
+    
+    // Ako se menja slika, uzmi prvi fajl
+    if (name === 'image') {
+      setNewItem({
+        ...newItem,
+        [name]: files[0] 
+      });
+    } else {
+      setNewItem({
+        ...newItem,
+        [name]: value  // Za ostala polja, uzmi vrednost iz inputa
+      });
+    }
+  };
+  
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+  
+    const formData = new FormData();
+    formData.append('file', newItem.image);  // Dodaj fajl u FormData
+  
+    try {
+      // Šaljemo sliku na backend
+      const response = await fetch('http://localhost:8000/api/upload', {
+        method: 'POST',
+        body: formData,
+      });
+  
+      const result = await response.json();
+      
+      if (result.path) {
+        // Ako je upload uspešan, ažuriraj image putanju u stanju
+        const newProduct = {
+          ...newItem,
+          image: result.path,  // Postavljamo URL slike koji je vraćen od Laravel-a
+        };
+
+        setNewItem(newProduct); 
+  
+        // Ovde možeš poslati `newProduct` na drugi endpoint za čuvanje proizvoda u bazi
+        console.log('Product added:', newProduct);
+  
+        // Primer kako možeš poslati `newProduct` na drugi API
+        // const productResponse = await fetch('http://localhost:8000/api/products', {
+        //   method: 'POST',
+        //   headers: {
+        //     'Content-Type': 'application/json',
+        //   },
+        //   body: JSON.stringify(newProduct),
+        // });
+        // const productResult = await productResponse.json();
+        // console.log('Product saved:', productResult);
+  
+      } else {
+        console.error('File upload failed:', result.message);
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+  
+
+  
+
+
+
+  useEffect(() => {
+    const token = localStorage.getItem('authToken');
+    const userRoles = localStorage.getItem('userRoles');
+    
+    if (token && userRoles) {
+      try {
+        const parsedRoles = JSON.parse(userRoles);
+        setIsAuthenticated(true);
+      } catch (error) {
+        console.error('Error parsing user roles:', error);
+        setIsAuthenticated(false);
+      }
+    } else {
+      setIsAuthenticated(false);
+    }
+  }, []);
+
   return (
     <div className="item-store-container">
       <h1 className="item-store-title">Item Store</h1>
-      <div className="coins-info">
-        <p>Player Level: {playerLevel}</p>
-        <p>Coins: <img src={coinsImage} alt="coins" className="coin-icon" /> {coins}</p>
-        <p>HP: <img src={hpImage} alt="HP" className="hp-icon" /> 100</p>
-      </div>
 
-      <div className="filters">
-        <button onClick={() => handleCategoryChange('all')}>All</button>
-        <button onClick={() => handleCategoryChange('potion')}>Potions</button>
-        <button onClick={() => handleCategoryChange('booster')}>Boosters</button>
-        <button onClick={() => handleCategoryChange('stone')}>Stones</button>
-      </div>
+      
+      
+      <div className="add-item-form">
+      <h2>Add New Product</h2>
+      <form onSubmit={handleSubmit}>
+        <label>
+          Name:
+          <input type="text" name="name" value={newItem.name} onChange={handleChange} required />
+        </label>
+        <label>
+          Description:
+          <input type="text" name="description" value={newItem.description} onChange={handleChange} required />
+        </label>
+        <label>
+          Price:
+          <input type="number" name="price" value={newItem.price} onChange={handleChange} required />
+        </label>
+        <label>
+          Category:
+          <select name="category" value={newItem.category} onChange={handleChange} required>
+            <option value="potion">Potion</option>
+            <option value="booster">Booster</option>
+            <option value="stone">Stone</option>
+          </select>
+        </label>
+        <label>
+          Image:
+          <input type="file" name="image" onChange={handleChange} required />
+        </label>
+        <button type="submit">Add Product</button>
+      </form>
+    </div>
 
-      <div className="item-list">
-        {currentItems.map((item) => (
-          <div key={item.id} className={`item-card ${item.unlockLevel <= playerLevel ? 'available' : 'locked'}`}>
-            <img src={item.image} alt={item.name} className="item-image" />
-            <h2>{item.name}</h2>
-            <p>{item.description}</p>
-            <p>Price: <img src={coinsImage} alt="Coins" className="coin-icon" /> {item.price}</p>
-            {item.unlockLevel <= playerLevel ? (
-              <button onClick={() => addToCart(item)}>Add to Cart</button>
-            ) : (
-              <button disabled>Locked</button>
-            )}
-          </div>
-        ))}
-      </div>
+    <div className="product-details">
+  <h2>{newItem.name}</h2>  {/* Ime proizvoda */}
+  <p><strong>Description:</strong> {newItem.description}</p>  {/* Opis proizvoda */}
+  <p><strong>Price:</strong> <img src={coinsImage} style={{ width: '12px', height: '12px' }}/> {newItem.price}</p>  {/* Cena proizvoda */}
+  <p><strong>Category:</strong> {newItem.category}</p>  {/* Kategorija proizvoda */}
+  <img src={newItem.image} alt={newItem.name} style={{ width: '300px', height: '300px' }}  />  {/* Slika proizvoda */}
+</div>
 
-      <div className="pagination">
-        {Array.from({ length: Math.ceil(filteredItems.length / itemsPerPage) }, (_, i) => (
-          <button
-            key={i}
-            onClick={() => handlePageChange(i + 1)}
-            className={currentPage === i + 1 ? 'active' : ''}
-          >
-            {i + 1}
-          </button>
-        ))}
-      </div>
+      {isAuthenticated ? (
+  <div className="coins-info">
+    <p>Player Level: {playerLevel}</p>
+    <p>Coins: <img src={coinsImage} alt="coins" className="coin-icon" /> {coins}</p>
+    <p>HP: <img src={hpImage} alt="HP" className="hp-icon" /> 100</p>
+  </div>
+) : (
+  <p>Please log in to view your player information.</p>
+)}
 
-      <div className="cart">
-        <h2>Your Cart</h2>
-        <ul>
-          {cart.length > 0 ? (
-            cart.map((item, index) => (
-              <li key={index}>
-                {item.name} - <img src={coinsImage} alt="Coins" className="coin-icon" /> {item.price} (x{item.quantity})
-                <button onClick={() => updateQuantity(item, 1)}>+</button>
-                <button onClick={() => updateQuantity(item, -1)}>-</button>
-                <button onClick={() => removeFromCart(item)}>Remove</button>
-              </li>
-            ))
-          ) : (
-            <p>Cart is empty</p>
-          )}
-        </ul>
-        {cart.length > 0 && <button onClick={handleCheckout}>Checkout</button>}
-      </div>
+
+
+      {!isAuthenticated ? (
+  <p>Please log in to buy items.</p>
+) : (
+  <>
+    <p>You can choose from:</p>
+    <div className="filters">
+      <button onClick={() => handleCategoryChange('all')}>All</button>
+      <button onClick={() => handleCategoryChange('potion')}>Potions</button>
+      <button onClick={() => handleCategoryChange('booster')}>Boosters</button>
+      <button onClick={() => handleCategoryChange('stone')}>Stones</button>
+    </div>
+  </>
+)}
+
+<div className="item-list">
+  {currentItems.map((item) => (
+    <div key={item.id} className={`item-card ${item.unlockLevel <= playerLevel ? 'available' : 'locked'}`}>
+      <img src={item.image} alt={item.name} className="item-image" />
+      <h2>{item.name}</h2>
+      <p>{item.description}</p>
+      <p>Price: <img src={coinsImage} alt="Coins" className="coin-icon" /> {item.price}</p>
+      {item.unlockLevel <= playerLevel ? (
+        isAuthenticated ? (
+          <button onClick={() => addToCart(item)}>Add to Cart</button>
+        ) : (
+          <button disabled>Please log in</button>
+        )
+      ) : (
+        <button disabled>Locked</button>
+      )}
+    </div>
+  ))}
+</div>
+
+
+{isAuthenticated && (
+  <div className="pagination">
+    {Array.from({ length: Math.ceil(filteredItems.length / itemsPerPage) }, (_, i) => (
+      <button
+        key={i}
+        onClick={() => handlePageChange(i + 1)}
+        className={currentPage === i + 1 ? 'active' : ''}
+      >
+        {i + 1}
+      </button>
+    ))}
+  </div>
+)}
+
+
+<div className="cart">
+  <h2>Your Cart</h2>
+  {isAuthenticated ? (
+    <ul>
+      {cart.length > 0 ? (
+        cart.map((item, index) => (
+          <li key={index}>
+            {item.name} - <img src={coinsImage} alt="Coins" className="coin-icon" /> {item.price} (x{item.quantity})
+            <button onClick={() => updateQuantity(item, 1)}>+</button>
+            <button onClick={() => updateQuantity(item, -1)}>-</button>
+            <button onClick={() => removeFromCart(item)}>Remove</button>
+          </li>
+        ))
+      ) : (
+        <p>Cart is empty</p>
+      )}
+    </ul>
+  ) : (
+    <p>Please log in to view your cart</p>
+  )}
+  {isAuthenticated && cart.length > 0 && <button onClick={handleCheckout}>Checkout</button>}
+</div>
+
 
       <div className="inventory">
         <h2>Your Inventory</h2>
@@ -173,6 +344,7 @@ const ItemStore = () => {
         </div>
       </div>
     </div>
+
   );
 };
 
