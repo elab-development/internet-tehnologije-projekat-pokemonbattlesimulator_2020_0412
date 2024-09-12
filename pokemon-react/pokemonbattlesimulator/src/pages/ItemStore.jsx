@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './ItemStore.css'; 
+import { useNavigate } from 'react-router-dom';
 import potionImage from '../picsforshops/potion.jpg';
 import superPotionImage from '../picsforshops/superpotion.png';
 import hyperPotionImage from '../picsforshops/hyperpotion.png';
@@ -19,6 +20,7 @@ import hpImage from '../picsforshops/hp.png';
 
 
 const ItemStore = () => {
+  const navigate = useNavigate();
   const [playerLevel, setPlayerLevel] = useState(3);
   const [coins, setCoins] = useState(1000);
   const [inventory, setInventory] = useState([]);
@@ -66,7 +68,25 @@ const ItemStore = () => {
   const [isAdmin, setIsAdmin] = useState(false);
 
 
-
+  useEffect(() => {
+    const token = localStorage.getItem('authToken');
+    const userRoles = localStorage.getItem('userRoles');
+    
+    if (token && userRoles) {
+      try {
+        const parsedRoles = JSON.parse(userRoles);
+        setIsAuthenticated(true);
+        setIsAdmin(parsedRoles.includes('admin'));
+      } catch (error) {
+        console.error('Error parsing user roles:', error);
+        setIsAuthenticated(false);
+        setIsAdmin(false);
+      }
+    } else {
+      setIsAuthenticated(false);
+      setIsAdmin(false);
+    }
+  }, [navigate]);
 
   const handleCategoryChange = (category) => {
     setSelectedCategory(category);
@@ -175,33 +195,13 @@ const ItemStore = () => {
   };
   
 
-  
-
-
-
-  useEffect(() => {
-    const token = localStorage.getItem('authToken');
-    const userRoles = localStorage.getItem('userRoles');
-    
-    if (token && userRoles) {
-      try {
-        const parsedRoles = JSON.parse(userRoles);
-        setIsAuthenticated(true);
-      } catch (error) {
-        console.error('Error parsing user roles:', error);
-        setIsAuthenticated(false);
-      }
-    } else {
-      setIsAuthenticated(false);
-    }
-  }, []);
 
   return (
     <div className="item-store-container">
       <h1 className="item-store-title">Item Store</h1>
 
       
-      
+      {isAuthenticated && isAdmin && (
       <div className="add-item-form">
       <h2>Add New Product</h2>
       <form onSubmit={handleSubmit}>
@@ -232,7 +232,8 @@ const ItemStore = () => {
         <button type="submit">Add Product</button>
       </form>
     </div>
-
+      )}
+      {isAuthenticated && isAdmin && (
     <div className="product-details">
   <h2>{newItem.name}</h2>  {/* Ime proizvoda */}
   <p><strong>Description:</strong> {newItem.description}</p>  {/* Opis proizvoda */}
@@ -240,6 +241,8 @@ const ItemStore = () => {
   <p><strong>Category:</strong> {newItem.category}</p>  {/* Kategorija proizvoda */}
   <img src={newItem.image} alt={newItem.name} style={{ width: '300px', height: '300px' }}  />  {/* Slika proizvoda */}
 </div>
+    )}
+      
 
       {isAuthenticated ? (
   <div className="coins-info">
