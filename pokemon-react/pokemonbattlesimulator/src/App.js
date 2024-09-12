@@ -1,5 +1,4 @@
-
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import LoginPage from './pages/LoginPage';
 import HomePage from './pages/HomePage';
@@ -11,16 +10,34 @@ import RankingTable from './pages/RankingTable';
 import ItemStore from './pages/ItemStore';
 import BattleRules from './pages/BattleRules';
 import ArenaPage from './pages/ArenaPage';
-import './App.css';
 import ListOfPokemons from './pages/ListOfPokemons';
-import PrivateRoute from './pages/PrivateRoute'; 
-
+import PrivateRoute from './pages/PrivateRoute';
+import './App.css';
 
 const App = () => {
 
   useEffect(() => {
     const savedTheme = localStorage.getItem('theme') || 'light';
     document.body.className = savedTheme;
+  }, []);
+
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  useEffect(() => {
+    const token = localStorage.getItem('authToken');
+    const userRoles = localStorage.getItem('userRoles');
+    
+    if (token && userRoles) {
+      try {
+        const parsedRoles = JSON.parse(userRoles);
+        setIsAuthenticated(true);
+      } catch (error) {
+        console.error('Error parsing user roles:', error);
+        setIsAuthenticated(false);
+      }
+    } else {
+      setIsAuthenticated(false);
+    }
   }, []);
 
   return (
@@ -45,9 +62,9 @@ const App = () => {
           <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/battle" element={<BattlePage />} />
-          <Route path="/arena" element={<ArenaPage />} />
+          <Route path="/arena" element={<PrivateRoute element={<ArenaPage />} />} />
           <Route path="/rankingtable" element={<RankingTable />} />
-          <Route path="/userprofile" element={<UserProfile />} />
+          <Route path="/userprofile" element={<PrivateRoute element={<UserProfile />} />} />
           <Route path="/pokemon-list" element={<PokemonList />} />
           <Route path="/itemstore" element={<ItemStore />} />
           <Route path="/battlerules" element={<BattleRules />} />
