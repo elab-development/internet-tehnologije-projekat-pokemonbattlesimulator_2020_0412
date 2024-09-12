@@ -10,29 +10,23 @@ const ArenaPage = () => {
     const [round, setRound] = useState(1);
     const [gameOver, setGameOver] = useState(false);
     const [gameWinner, setGameWinner] = useState('');
-    const [roundWinner, setRoundWinner] = useState('');
+    const [pokemon1Move, setPokemon1Move] = useState('');
+    const [pokemon2Move, setPokemon2Move] = useState('');
+    const [pokemon1Name, setPokemon1Name] = useState('');
+    const [pokemon2Name] = useState(["Bulbasaur", "Squirtle", "Jigglypuff", "Gengar", "Snorlax"][Math.floor(Math.random() * 5)]);
+    const [arenaName] = useState(["Viridian Forest", "Cerulean Cave", "Mt. Moon", "Indigo Plateau", "Lavender Town"][Math.floor(Math.random() * 5)]);
 
     const pokemon1Attacks = [
-        "uses Thunderbolt and shocks",
-        "throws an electric ball at",
-        "dashes with Quick Attack and hits",
-        "uses Thunder Shock against",
-        "launches a powerful Zap against"
+        { name: "Thunderbolt", damage: 15 },
+        { name: "Quick Attack", damage: 10 },
+        { name: "Thunder Shock", damage: 12 }
     ];
 
     const pokemon2Attacks = [
-        "uses Flamethrower and scorches",
-        "scratches with its claws at",
-        "hits with a Tail Whip at",
-        "launches a fireball at",
-        "bites fiercely at"
+        { name: "Flamethrower", damage: 18 },
+        { name: "Tail Whip", damage: 8 },
+        { name: "Fireball", damage: 14 }
     ];
-
-    const randomArenaNames = ["Viridian Forest", "Cerulean Cave", "Mt. Moon", "Indigo Plateau", "Lavender Town"];
-
-    const [pokemon1Name, setPokemon1Name] = useState('');
-    const [pokemon2Name] = useState(["Bulbasaur", "Squirtle", "Jigglypuff", "Gengar", "Snorlax"][Math.floor(Math.random() * 5)]);
-    const [arenaName] = useState(randomArenaNames[Math.floor(Math.random() * randomArenaNames.length)]);
 
     useEffect(() => {
         // Get the selected Pokémon name from localStorage
@@ -42,75 +36,52 @@ const ArenaPage = () => {
         }
     }, []);
 
-    const randomDamage = () => Math.floor(Math.random() * 20) + 1;
-    const randomAttackDescription = (attacker) => {
-        return attacker === "pokemon1"
-            ? pokemon1Attacks[Math.floor(Math.random() * pokemon1Attacks.length)]
-            : pokemon2Attacks[Math.floor(Math.random() * pokemon2Attacks.length)];
-    };
-
-    const startRound = () => {
-        if (gameOver) return;
+    const handleAttack = () => {
+        if (gameOver || !pokemon1Move) return;
 
         let p1Health = pokemon1Health;
         let p2Health = pokemon2Health;
         let log = [`Round ${round} begins in ${arenaName}!`];
 
-        while (p1Health > 0 && p2Health > 0) {
-            let pokemon1Attack = randomDamage();
-            p2Health = Math.max(p2Health - pokemon1Attack, 0);
-            log.push(`${pokemon1Name} ${randomAttackDescription("pokemon1")} ${pokemon2Name}! ${pokemon2Name} Health: ${p2Health}`);
+        // Pokémon 1 attacks
+        const p1Attack = pokemon1Attacks.find(attack => attack.name === pokemon1Move);
+        if (p1Attack) {
+            p2Health = Math.max(p2Health - p1Attack.damage, 0);
+            log.push(`${pokemon1Name} uses ${p1Attack.name} on ${pokemon2Name}! ${pokemon2Name} Health: ${p2Health}`);
+            setPokemon2Health(p2Health);
+        }
 
-            if (p2Health === 0) {
-                setRoundWinner(pokemon1Name);
-                setPokemon1Wins(pokemon1Wins + 1);
-                log.push(`End of Round ${round} - ${pokemon1Name} wins this round!`);
-                break;
-            }
+        // Pokémon 2 attacks with random attack
+        const p2Attack = pokemon2Attacks[Math.floor(Math.random() * pokemon2Attacks.length)];
+        p1Health = Math.max(p1Health - p2Attack.damage, 0);
+        log.push(`${pokemon2Name} uses ${p2Attack.name} on ${pokemon1Name}! ${pokemon1Name} Health: ${p1Health}`);
+        setPokemon1Health(p1Health);
 
-            let pokemon2Attack = randomDamage();
-            p1Health = Math.max(p1Health - pokemon2Attack, 0);
-            log.push(`${pokemon2Name} ${randomAttackDescription("pokemon2")} ${pokemon1Name}! ${pokemon1Name} Health: ${p1Health}`);
-
-            if (p1Health === 0) {
-                setRoundWinner(pokemon2Name);
+        // Check if either Pokémon's health is 0
+        if (p1Health <= 0 || p2Health <= 0) {
+            if (p1Health <= 0) {
                 setPokemon2Wins(pokemon2Wins + 1);
                 log.push(`End of Round ${round} - ${pokemon2Name} wins this round!`);
-                break;
+            } else {
+                setPokemon1Wins(pokemon1Wins + 1);
+                log.push(`End of Round ${round} - ${pokemon1Name} wins this round!`);
             }
-        }
 
-        setBattleLog(prevLog => [...prevLog, ...log, '']); 
-
-        setPokemon1Health(p1Health);
-        setPokemon2Health(p2Health);
-
-        if (pokemon1Wins === 3) {
-            if (!gameOver) { 
+            // Check if game is over
+            if (pokemon1Wins === 3 || pokemon2Wins === 3) {
                 setGameOver(true);
-                setGameWinner(pokemon1Name);
-                setBattleLog(prevLog => [...prevLog, `Game Over! ${pokemon1Name} wins the game!`]);
-            }
-        } else if (pokemon2Wins === 3) {
-            if (!gameOver) { 
-                setGameOver(true);
-                setGameWinner(pokemon2Name);
-                setBattleLog(prevLog => [...prevLog, `Game Over! ${pokemon2Name} wins the game!`]);
-            }
-        } else {
-            if (round <= 4 && pokemon1Wins < 3 && pokemon2Wins < 3) {
+                setGameWinner(pokemon1Wins > pokemon2Wins ? pokemon1Name : pokemon2Name);
+                log.push(`Game Over! Winner: ${pokemon1Wins > pokemon2Wins ? pokemon1Name : pokemon2Name}`);
+            } else {
+                // Proceed to next round
                 setRound(round + 1);
-                setPokemon1Health(100); 
-                setPokemon2Health(100); 
-            } else if (round > 4) {
-                if (!gameOver) { 
-                    setGameOver(true);
-                    setGameWinner(pokemon1Wins > pokemon2Wins ? pokemon1Name : pokemon2Name);
-                    setBattleLog(prevLog => [...prevLog, `Game Over! After 5 rounds, Winner: ${pokemon1Wins > pokemon2Wins ? pokemon1Name : pokemon2Name}`]);
-                }
+                setPokemon1Health(100);
+                setPokemon2Health(100);
             }
         }
-    }        
+
+        setBattleLog(prevLog => [...prevLog, ...log, '']);
+    };
 
     const resetBattle = () => {
         setPokemon1Health(100);
@@ -121,7 +92,8 @@ const ArenaPage = () => {
         setBattleLog([]);
         setGameOver(false);
         setGameWinner('');
-        setRoundWinner('');
+        setPokemon1Move('');
+        setPokemon2Move('');
     };
 
     return (
@@ -132,14 +104,20 @@ const ArenaPage = () => {
                 <div className="pokemon">
                     <h2>{pokemon1Name}</h2>
                     <p>Health: {pokemon1Health}</p>
+                    <select onChange={(e) => setPokemon1Move(e.target.value)} value={pokemon1Move}>
+                        <option value="">Select Attack</option>
+                        {pokemon1Attacks.map((attack, index) => (
+                            <option key={index} value={attack.name}>{attack.name}</option>
+                        ))}
+                    </select>
                 </div>
                 <div className="pokemon">
                     <h2>{pokemon2Name}</h2>
                     <p>Health: {pokemon2Health}</p>
                 </div>
             </div>
-            <button className="start-round-btn" onClick={startRound} disabled={gameOver}>
-                {gameOver ? 'Game Over' : 'Start Round'}
+            <button className="start-round-btn" onClick={handleAttack} disabled={gameOver || !pokemon1Move}>
+                {gameOver ? 'Game Over' : 'Play Round'}
             </button>
             <button className="reset-battle-btn" onClick={resetBattle}>Reset Battle</button>
             <div className="battle-stats">
