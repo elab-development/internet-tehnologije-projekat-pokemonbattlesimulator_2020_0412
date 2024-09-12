@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './HomePage.css'; 
 import backgroundImage from './looped-pokémon-battle.gif';
 import PokemonTips from './PokemonTips';
@@ -18,6 +18,26 @@ const handleStartBattle = () => {
   navigate('/battle');
 };
 
+const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+
+  useEffect(() => {
+    const token = localStorage.getItem('authToken');
+    const userRoles = localStorage.getItem('userRoles');
+    
+    if (token && userRoles) {
+      try {
+        const parsedRoles = JSON.parse(userRoles);
+        setIsAuthenticated(true);
+      } catch (error) {
+        console.error('Error parsing user roles:', error);
+        setIsAuthenticated(false);
+      }
+    } else {
+      setIsAuthenticated(false);
+    }
+  }, [navigate]);
+
 
   return (
     <div className="home-container" style={{ backgroundImage: `url(${backgroundImage})` }}>
@@ -25,7 +45,9 @@ const handleStartBattle = () => {
         <h1 className="header-title">Welcome to the Pokémon Battle Simulator</h1>
         <PokemonTips />
         <p className="header-subtitle">Choose your Pokémon, train them, and battle against others!</p>
+        {isAuthenticated && (
         <button className="cta-button" onClick={handleStartBattle}>Start Battle</button>
+        )}
       </header>
       <section className="info-section">
         <div className="info-card">

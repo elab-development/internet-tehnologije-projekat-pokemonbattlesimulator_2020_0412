@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom'; // Importovanje useNavigate hook-a
 import './BattlePage.css';
 import pokemonImage1 from '../assets/images/large.pikachu.png.4c0ec2bef34e3bafe92c69f922a3d2b3.png';
@@ -13,8 +13,30 @@ import pokemonImage9 from '../assets/images/__chimchar_pokemon_and_1_more__sampl
 import pokemonImage10 from '../assets/images/PNG-TR_1-transformed.png';
 
 const BattlePage = () => {
+
+  
     const [selectedPokemon, setSelectedPokemon] = useState(null);
     const navigate = useNavigate(); 
+
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+
+  useEffect(() => {
+    const token = localStorage.getItem('authToken');
+    const userRoles = localStorage.getItem('userRoles');
+    
+    if (token && userRoles) {
+      try {
+        const parsedRoles = JSON.parse(userRoles);
+        setIsAuthenticated(true);
+      } catch (error) {
+        console.error('Error parsing user roles:', error);
+        setIsAuthenticated(false);
+      }
+    } else {
+      setIsAuthenticated(false);
+    }
+  }, [navigate]);
 
     const handlePokemonClick = (pokemonId) => {
         setSelectedPokemon(pokemonId);
@@ -23,6 +45,8 @@ const BattlePage = () => {
     const handleStartBattle = () => {
         navigate('/arena'); 
     };
+
+    
 
     return (
       <div className="battle-page">
@@ -101,9 +125,11 @@ const BattlePage = () => {
             </div>
           </div>
         </div>
+        {isAuthenticated && (
         <button className="start-battle" onClick={handleStartBattle}>
           Let's GO!
         </button>
+        )}
       </div>
     );
   };
