@@ -14,39 +14,39 @@ import pokemonImage10 from '../assets/images/PNG-TR_1-transformed.png';
 
 const BattlePage = () => {
 
-  
-    const [selectedPokemon, setSelectedPokemon] = useState(null);
+    const [selectedPokemon, setSelectedPokemon] = useState('');
     const navigate = useNavigate(); 
 
     const [isAuthenticated, setIsAuthenticated] = useState(false);
 
+    useEffect(() => {
+        const token = localStorage.getItem('authToken');
+        const userRoles = localStorage.getItem('userRoles');
+        
+        if (token && userRoles) {
+            try {
+                const parsedRoles = JSON.parse(userRoles);
+                setIsAuthenticated(true);
+            } catch (error) {
+                console.error('Error parsing user roles:', error);
+                setIsAuthenticated(false);
+            }
+        } else {
+            setIsAuthenticated(false);
+        }
+    }, [navigate]);
 
-  useEffect(() => {
-    const token = localStorage.getItem('authToken');
-    const userRoles = localStorage.getItem('userRoles');
-    
-    if (token && userRoles) {
-      try {
-        const parsedRoles = JSON.parse(userRoles);
-        setIsAuthenticated(true);
-      } catch (error) {
-        console.error('Error parsing user roles:', error);
-        setIsAuthenticated(false);
-      }
-    } else {
-      setIsAuthenticated(false);
-    }
-  }, [navigate]);
-
-    const handlePokemonClick = (pokemonId) => {
-        setSelectedPokemon(pokemonId);
+    const handlePokemonClick = (pokemonName) => {
+        setSelectedPokemon(pokemonName);
     };
 
     const handleStartBattle = () => {
-        navigate('/arena'); 
+        if (selectedPokemon) {
+            // Store selected Pokémon name in localStorage or state if needed
+            localStorage.setItem('selectedPokemon', selectedPokemon);
+            navigate('/arena'); 
+        }
     };
-
-    
 
     return (
       <div className="battle-page">
@@ -54,73 +54,73 @@ const BattlePage = () => {
           <h2>Select Your Pokémon</h2>
           <div className="pokemon-container">
             <div 
-              className={`pokemon-item ${selectedPokemon === 1 ? 'selected' : ''}`}
-              onClick={() => handlePokemonClick(1)}
+              className={`pokemon-item ${selectedPokemon === 'Pikachu' ? 'selected' : ''}`}
+              onClick={() => handlePokemonClick('Pikachu')}
             >
-              <img src={pokemonImage1} alt="Pokémon 1" />
+              <img src={pokemonImage1} alt="Pikachu" />
               <p>Pikachu</p>
             </div>
             <div 
-              className={`pokemon-item ${selectedPokemon === 2 ? 'selected' : ''}`}
-              onClick={() => handlePokemonClick(2)}
+              className={`pokemon-item ${selectedPokemon === 'Bulbasaur' ? 'selected' : ''}`}
+              onClick={() => handlePokemonClick('Bulbasaur')}
             >
-              <img src={pokemonImage2} alt="Pokémon 2" />
+              <img src={pokemonImage2} alt="Bulbasaur" />
               <p>Bulbasaur</p>
             </div>
             <div 
-              className={`pokemon-item ${selectedPokemon === 3 ? 'selected' : ''}`}
-              onClick={() => handlePokemonClick(3)}
+              className={`pokemon-item ${selectedPokemon === 'Charmander' ? 'selected' : ''}`}
+              onClick={() => handlePokemonClick('Charmander')}
             >
-              <img src={pokemonImage3} alt="Pokémon 3" />
+              <img src={pokemonImage3} alt="Charmander" />
               <p>Charmander</p>
             </div>
             <div 
-              className={`pokemon-item ${selectedPokemon === 4 ? 'selected' : ''}`}
-              onClick={() => handlePokemonClick(4)}
+              className={`pokemon-item ${selectedPokemon === 'Squirtle' ? 'selected' : ''}`}
+              onClick={() => handlePokemonClick('Squirtle')}
             >
-              <img src={pokemonImage4} alt="Pokémon 4" />
+              <img src={pokemonImage4} alt="Squirtle" />
               <p>Squirtle</p>
             </div>
             <div 
-              className={`pokemon-item ${selectedPokemon === 5 ? 'selected' : ''}`}
-              onClick={() => handlePokemonClick(5)}
+              className={`pokemon-item ${selectedPokemon === 'Turtwig' ? 'selected' : ''}`}
+              onClick={() => handlePokemonClick('Turtwig')}
             >
-              <img src={pokemonImage5} alt="Pokémon 5" />
+              <img src={pokemonImage5} alt="Turtwig" />
               <p>Turtwig</p>
             </div>
             <div 
-              className={`pokemon-item ${selectedPokemon === 6 ? 'selected' : ''}`}
-              onClick={() => handlePokemonClick(6)}
+              className={`pokemon-item ${selectedPokemon === 'Totodile' ? 'selected' : ''}`}
+              onClick={() => handlePokemonClick('Totodile')}
             >
-              <img src={pokemonImage6} alt="Pokémon 6" />
+              <img src={pokemonImage6} alt="Totodile" />
               <p>Totodile</p>
             </div>
             <div 
-              className={`pokemon-item ${selectedPokemon === 7 ? 'selected' : ''}`}
-              onClick={() => handlePokemonClick(7)}
+              className={`pokemon-item ${selectedPokemon === 'Mudkip' ? 'selected' : ''}`}
+              onClick={() => handlePokemonClick('Mudkip')}
             >
-              <img src={pokemonImage7} alt="Pokémon 7" />
+              <img src={pokemonImage7} alt="Mudkip" />
               <p>Mudkip</p>
             </div>
             <div 
-              className={`pokemon-item ${selectedPokemon === 8 ? 'selected' : ''}`}
-              onClick={() => handlePokemonClick(8)}
+              className={`pokemon-item ${selectedPokemon === 'Froakie' ? 'selected' : ''}`}
+              onClick={() => handlePokemonClick('Froakie')}
             >
-              <img src={pokemonImage8} alt="Pokémon 8" />
+              <img src={pokemonImage8} alt="Froakie" />
               <p>Froakie</p>
             </div>
             <div 
-              className={`pokemon-item ${selectedPokemon === 9 ? 'selected' : ''}`}
-              onClick={() => handlePokemonClick(9)}
+              className={`pokemon-item ${selectedPokemon === 'Chimchar' ? 'selected' : ''}`}
+              onClick={() => handlePokemonClick('Chimchar')}
             >
-              <img src={pokemonImage9} alt="Pokémon 9" />
+              <img src={pokemonImage9} alt="Chimchar" />
               <p>Chimchar</p>
             </div>
             <div 
-              className={`pokemon-item ${selectedPokemon === 10 ? 'selected' : ''}`}
-              onClick={() => handlePokemonClick(10)}
+              className={`pokemon-item ${selectedPokemon === 'Rowlet' ? 'selected' : ''}`}
+              onClick={() => handlePokemonClick('Rowlet')}
             >
-              <img src={pokemonImage10} alt="Pokémon 10" />
+              <img src={pokemonImage10} alt="Rowlet" />
               <p>Rowlet</p>
             </div>
           </div>
@@ -132,6 +132,6 @@ const BattlePage = () => {
         )}
       </div>
     );
-  };
-  
-  export default BattlePage;
+};
+
+export default BattlePage;

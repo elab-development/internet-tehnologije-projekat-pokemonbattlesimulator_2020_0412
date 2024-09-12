@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './ArenaPage.css';
 
 const ArenaPage = () => {
@@ -28,12 +28,19 @@ const ArenaPage = () => {
         "bites fiercely at"
     ];
 
-    const randomPokemonNames = ["Bulbasaur", "Squirtle", "Jigglypuff", "Gengar", "Snorlax"];
     const randomArenaNames = ["Viridian Forest", "Cerulean Cave", "Mt. Moon", "Indigo Plateau", "Lavender Town"];
-    
-    const [pokemon1Name] = useState(randomPokemonNames[Math.floor(Math.random() * randomPokemonNames.length)]);
-    const [pokemon2Name] = useState(randomPokemonNames[Math.floor(Math.random() * randomPokemonNames.length)]);
+
+    const [pokemon1Name, setPokemon1Name] = useState('');
+    const [pokemon2Name] = useState(["Bulbasaur", "Squirtle", "Jigglypuff", "Gengar", "Snorlax"][Math.floor(Math.random() * 5)]);
     const [arenaName] = useState(randomArenaNames[Math.floor(Math.random() * randomArenaNames.length)]);
+
+    useEffect(() => {
+        // Get the selected Pokémon name from localStorage
+        const selectedPokemon = localStorage.getItem('selectedPokemon');
+        if (selectedPokemon) {
+            setPokemon1Name(selectedPokemon);
+        }
+    }, []);
 
     const randomDamage = () => Math.floor(Math.random() * 20) + 1;
     const randomAttackDescription = (attacker) => {
