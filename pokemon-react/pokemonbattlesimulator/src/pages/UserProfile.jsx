@@ -1,103 +1,139 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import './UserProfile.css';
+import './UserProfile.css'; 
 
 const UserProfile = () => {
-  const [userData, setUserData] = useState(null);
+    const [user, setUser] = useState({
+        name: '',
+        level: 0,
+        battles: 0,
+        wins: 0,
+        losses: 0
+    });
+    const [recentWins, setRecentWins] = useState([]);
+    const [randomPokemonList, setRandomPokemonList] = useState([]);
 
-  useEffect(() => {
-    const fakeUserData = {
-      id: 1,
-      username: 'User',
-      level: 15,
-      battles: 45,
-      wins: 30,
-      losses: 15,
-      evolvedPokemon: ['Raichu', 'Charizard'],
-      history: [
-        'Pikachu vs Bulbasaur',
-        'Charizard vs Blastoise',
-        'Pikachu vs Charmander',
-        'Bulbasaur vs Squirtle',
-        'Charizard vs Charmeleon',
-        'Pikachu vs Snorlax',
-        'Charizard vs Gyarados',
-        'Bulbasaur vs Vileplume'
-      ],
-      avatar: '',
-      pokemon: ['Pikachu', 'Charizard', 'Bulbasaur']
+    const pokemonEvolutionStages = {
+      'Pikachu': ['Pichu', 'Pikachu', 'Raichu'],
+      'Charmander': ['Charmander', 'Charmeleon', 'Charizard'],
+      'Mewtwo': ['Mewtwo (Stage 1)', 'Mewtwo (Mega X)', 'Mewtwo (Mega Y)'],
+      'Eevee': ['Eevee', 'Vaporeon', 'Jolteon', 'Flareon', 'Espeon', 'Umbreon', 'Leafeon', 'Glaceon', 'Sylveon']
+  };
+
+    // Mapiranje Pokemon ID-jeva na imena
+    const pokemonNames = {
+        2: 'Pikachu',
+        3: 'Charmander',
+        16: 'Mewtwo',
+        17: 'Eevee'
     };
 
-    setTimeout(() => setUserData(fakeUserData), 2000);
+    // Funkcija za generisanje nasumičnih korisničkih podataka
+    const generateRandomUserData = () => {
+        const randomLevel = Math.floor(Math.random() * 100) + 1;
+        const randomBattles = Math.floor(Math.random() * 50) + 1;
+        const randomWins = Math.floor(Math.random() * randomBattles);
+        const randomLosses = randomBattles - randomWins;
+
+        return {
+            name: `Trainer${Math.floor(Math.random() * 1000)}`,
+            level: randomLevel,
+            battles: randomBattles,
+            wins: randomWins,
+            losses: randomLosses
+        };
+    };
+
+    // Funkcija za generisanje nasumične liste Pokemona i njihovih traka za nivo
+    const generateRandomPokemonList = () => {
+      const pokemons = ['Pikachu', 'Charmander', 'Mewtwo', 'Eevee'];
+      const randomList = [];
+
+      for (let i = 0; i < 3; i++) {
+          const randomPokemon = pokemons[Math.floor(Math.random() * pokemons.length)];
+          const progress = Math.floor(Math.random() * 101); // Nasumična vrednost za traku (0-100%)
+          const stages = pokemonEvolutionStages[randomPokemon];
+          const evolutionStage = getEvolutionStage(progress, stages);
+          randomList.push({
+              name: randomPokemon,
+              progress: progress,
+              evolutionStage: evolutionStage
+          });
+      }
+
+      return randomList;
+  };
+
+  // Funkcija koja određuje evolutivni stadijum na osnovu napretka
+  const getEvolutionStage = (progress, stages) => {
+      if (progress < 33) {
+          return stages[0];
+      } else if (progress < 66) {
+          return stages[1];
+      } else {
+          return stages[stages.length - 1]; // Poslednji stadijum evolucije
+      }
+  };
+
+  // Fetch podataka o poslednjim pobedama
+  const fetchRecentWins = async () => {
+      const response = await fetch(`http://localhost:8000/api/battles/wins/pokemon/Pokemon1`); // Zameni pokemon_id sa odgovarajućim ID-jem
+      const data = await response.json();
+      setRecentWins(data);
+  };
+
+  useEffect(() => {
+      // Nasumično generisanje korisničkih podataka
+      setUser(generateRandomUserData());
+      // Generisanje nasumične liste Pokemona
+      setRandomPokemonList(generateRandomPokemonList());
+      // Povlačenje podataka o poslednjim pobedama
+      fetchRecentWins();
   }, []);
 
-  if (!userData) {
-    return <div className="loading-spinner"></div>;
-  }
+  const getInitial = (name) => {
+    return name.charAt(0).toUpperCase();
+};
 
   return (
-    <div className="profile-container">
-      {userData.avatar ? (
-        <img src={userData.avatar} alt="Profile Avatar" className="profile-avatar" />
-      ) : (
-        <div className="profile-avatar profile-avatar-default">
-          {userData.username.charAt(0).toUpperCase()}
-        </div>
-      )}
+    <div className="user-profile">
+          <h1>{user.name}'s Profile</h1>
+          <div className="profile-image">{getInitial(user.name)}</div>
+          <p>Level: {user.level}</p>
+          <p>Total Battles: {user.battles}</p>
+          <p>Wins: {user.wins}</p>
+          <p>Losses: {user.losses}</p>
 
-      <div className="profile-info">
-        <h1>{userData.username}</h1>
-        <p>Level: {userData.level}</p>
-        <p>Wins: {userData.wins}</p>
-        <p>Losses: {userData.losses}</p>
-        <p>Total Battles: {userData.battles}</p>
-      </div>
-
-      <div className="pokemon-section">
-        <h2>My Pokémon:</h2>
-        <ul className="pokemon-list">
-          {userData.pokemon.length > 0 ? (
-            userData.pokemon.map((poke, index) => (
-              <li key={index} className="pokemon-item">
-                <Link to="/pokemon-list">{poke}</Link>
-              </li>
-            ))
-          ) : (
-            <li className="pokemon-item">You have no Pokémon</li>
-          )}
+        <h2>Pokemons</h2>
+        <ul className="profile-list">
+            {randomPokemonList.length > 0 ? (
+                randomPokemonList.map((pokemon, index) => (
+                    <li key={index}>
+                        {pokemon.name} (Evolution Stage: {pokemon.evolutionStage})
+                        <div className="progress-bar">
+                            <progress value={pokemon.progress} max="100"></progress>
+                            <span>{pokemon.progress}% progress to next stage</span>
+                        </div>
+                    </li>
+                ))
+            ) : (
+                <p>No Pokémon data available.</p>
+            )}
         </ul>
-      </div>
 
-      <div className="pokemon-section">
-        <h2>Evolved Pokémon:</h2>
-        <ul className="pokemon-list">
-          {userData.evolvedPokemon.length > 0 ? (
-            userData.evolvedPokemon.map((poke, index) => (
-              <li key={index} className="pokemon-item">
-                {poke}
-                <div className="progress-container">
-                  <div className="progress-bar" style={{ width: `${Math.floor(Math.random() * 100)}%` }}></div>
-                </div>
-              </li>
-            ))
-          ) : (
-            <li className="pokemon-item">You have no evolved Pokémon</li>
-          )}
+        <h2>Recent Wins</h2>
+        <ul className="profile-list">
+            {recentWins.length > 0 ? (
+                recentWins.map((win, index) => (
+                    <li key={index}>
+                        Location: {win.location}, Opponent: {pokemonNames[win.pokemon2_id] || `Unknown (ID: ${win.pokemon2_id})`}, Duration: {win.battle_duration}
+                    </li>
+                ))
+            ) : (
+                <p>No recent wins found.</p>
+            )}
         </ul>
-      </div>
-
-      <div className="battle-history">
-        <h2>Recent Battles:</h2>
-        <div className="battle-history-content">
-          <ul>
-            {userData.history.slice(0, 5).map((battle, index) => (
-              <li key={index} className="battle-item">{battle}</li>
-            ))}
-          </ul>
-        </div>
-      </div>
     </div>
-  );
+);
 };
 
 export default UserProfile;
