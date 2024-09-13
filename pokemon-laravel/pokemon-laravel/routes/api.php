@@ -12,6 +12,7 @@ use App\Http\Controllers\SearchController;
 use App\Http\Controllers\ExportController;
 use App\Http\Controllers\PokemonDataController;
 use App\Http\Controllers\PasswordController;
+use App\Http\Controllers\StatsController;
 
 
 
@@ -53,6 +54,8 @@ Route::middleware ( 'auth:sanctum' )->group ( function ()
 
 
     Route::get ( '/pokemons/filter', [ PokemonController::class, 'filterByType' ] );
+
+    Route::get ( '/location-stats', [ StatsController::class, 'getLocationStats' ] );
     } );
 
 

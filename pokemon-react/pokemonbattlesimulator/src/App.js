@@ -12,6 +12,8 @@ import BattleRules from './pages/BattleRules';
 import ArenaPage from './pages/ArenaPage';
 import ListOfPokemons from './pages/ListOfPokemons';
 import PrivateRoute from './pages/PrivateRoute';
+import PokemonCards from './pages/PokemonCards';
+import Stats from './pages/Stats';
 import './App.css';
 
 const App = () => {
@@ -48,6 +50,7 @@ const App = () => {
           <li><Link to="/login">Login</Link></li>
           <li><Link to="/battle">Battle</Link></li>
           <li><Link to="/arena">Arena</Link></li>
+          <li><Link to="/stats">Stats</Link></li>
           <li><Link to="/rankingtable">RankingTable</Link></li>
           <li><Link to="/userprofile">UserProfile</Link></li>
           <li><Link to="/pokemon-list">PokemonList</Link></li>
@@ -55,6 +58,7 @@ const App = () => {
           <li><Link to="/battlerules">BattleRules</Link></li>
           <li><Link to="/themesettings">ThemeSettings</Link></li>
           <li><Link to="/listofpokemons">ListOfPokemons</Link></li>
+          <li><Link to="/pokemoncards">PokemonCards</Link></li>
         </ul>
       </nav>
       <main>
@@ -63,6 +67,7 @@ const App = () => {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/battle" element={<BattlePage />} />
           <Route path="/arena" element={<PrivateRoute element={<ArenaPage />} />} />
+          <Route path="/stats" element={<Stats />} />
           <Route path="/rankingtable" element={<RankingTable />} />
           <Route path="/userprofile" element={<PrivateRoute element={<UserProfile />} />} />
           <Route path="/pokemon-list" element={<PokemonList />} />
@@ -70,6 +75,7 @@ const App = () => {
           <Route path="/battlerules" element={<BattleRules />} />
           <Route path="/themesettings" element={<ThemeSettings />} />
           <Route path="/listofpokemons" element={<ListOfPokemons />} />
+          <Route path="/pokemonCards" element={<PrivateRoute element={<PokemonCards />} />} />
         </Routes>
       </main>
     </Router>
