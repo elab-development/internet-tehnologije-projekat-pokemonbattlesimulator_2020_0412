@@ -121,9 +121,9 @@ Pokemon Battle Simulator is a web application that allows users to simulate batt
 
 **_Protected Routes (requires authentication with Sanctum)_**
 
-**GET /pokemons/paginate** - Get a paginated list of Pokemon
-**GET /pokemons/filter** - Filter Pokemon by type
-**GET /location-stats** - Get battle statistics by location
+- **GET /pokemons/paginate** - Get a paginated list of Pokemon
+- **GET /pokemons/filter** - Filter Pokemon by type
+- **GET /location-stats** - Get battle statistics by location
 
 **_Admin Routes (requires authentication and admin role)_**
 
