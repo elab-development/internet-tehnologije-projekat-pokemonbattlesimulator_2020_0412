@@ -100,24 +100,24 @@ Pokemon Battle Simulator is a web application that allows users to simulate batt
 
 ## API Endpoints
 
-**POST /register** - Register a new user
-**POST /login** - User login
-**POST /logout** - User logout (requires authentication)
-**GET /battles1/pokemon/{pokemon1_id}** - Get battles for Pokemon 1
-**GET /battles2/pokemon/{pokemon2_id}** - Get battles for Pokemon 2
-**GET /battles/wins/pokemon/{pokemon_id}** - Get battles where Pokemon won
-**GET /pokemons/strongest** - Get the strongest Pokemon
-**GET /pokemons/types** - Get all available Pokemon types
-**GET /pokemons/type/{type}** - Get Pokemon by type
-**GET /abilities/status** - Get abilities that cause status effects
-**GET /abilities/type/{type}** - Get abilities by type
-**GET /abilities/latest** - Get the latest abilities
-**POST /upload** - Upload a file
-**GET /export/csv** - Export data as CSV
-**GET /search** - Search for Pokemon or abilities
-**POST /password/email** - Send a password reset link
-**POST /forgot-password** - Forgot password reset process
-**POST /reset-password** - Reset password with a token
+- **POST /register** - Register a new user
+- **POST /login** - User login
+- **POST /logout** - User logout (requires authentication)
+- **GET /battles1/pokemon/{pokemon1_id}** - Get battles for Pokemon 1
+- **GET /battles2/pokemon/{pokemon2_id}** - Get battles for Pokemon 2
+- **GET /battles/wins/pokemon/{pokemon_id}** - Get battles where Pokemon won
+- **GET /pokemons/strongest** - Get the strongest Pokemon
+- **GET /pokemons/types** - Get all available Pokemon types
+- **GET /pokemons/type/{type}** - Get Pokemon by type
+- **GET /abilities/status** - Get abilities that cause status effects
+- **GET /abilities/type/{type}** - Get abilities by type
+- **GET /abilities/latest** - Get the latest abilities
+- **POST /upload** - Upload a file
+- **GET /export/csv** - Export data as CSV
+- **GET /search** - Search for Pokemon or abilities
+- **POST /password/email** - Send a password reset link
+- **POST /forgot-password** - Forgot password reset process
+- **POST /reset-password** - Reset password with a token
 
 **_Protected Routes (requires authentication with Sanctum)_**
 
@@ -154,12 +154,12 @@ Pokemon Battle Simulator is a web application that allows users to simulate batt
 
 ## Technologies Used
 
-**Backend:** Laravel (PHP Framework)
-**Frontend:** React.js
-**Database:** MySQL (or another database defined in the .env file)
-**Authentication:** Laravel Sanctum
-**API: RESTful API** with JSON responses
-**Version Control:** GitHub
+- **Backend:** Laravel (PHP Framework)
+- **Frontend:** React.js
+- **Database:** MySQL (or another database defined in the .env file)
+- **Authentication:** Laravel Sanctum
+- **API: RESTful API** with JSON responses
+- **Version Control:** GitHub
 
 ## Usage
 
