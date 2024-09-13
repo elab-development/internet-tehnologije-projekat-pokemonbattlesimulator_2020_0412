@@ -149,13 +149,12 @@ const RankingTable = () => {
       {isAuthenticated ? (
       <>
         <GlobalFilter filter={state.globalFilter} setFilter={setGlobalFilter} />
-        {/* Ovdje dodaj sve ostale komponente i sadržaje koji trebaju biti prikazani kada je korisnik autentifikovan */}
       </>
     ) : (
-      <p>Please log in to view full rankings.</p> // Poruka za korisnike koji nisu autentifikovani
+      <p>Please log in to view full rankings.</p> 
     )}
       
-      {/* Opisni tekst i dugme za preuzimanje CSV-a */}
+
       <p>
         See which users are in the lead. You can download the list of users 
         and their emails in CSV format using the button below.

@@ -68,12 +68,12 @@ const PokemonList = () => {
     });
   };
 
-  // Filtriranje pokemona
+  
   const filteredPokemons = pokemons.filter(pokemon =>
-    pokemon.name.toLowerCase().includes(searchTerm.toLowerCase()) && // Pretraga po imenu
-    (selectedAbility === '' || pokemon.abilities.includes(selectedAbility)) && // Pretraga po ability-ju
-    (selectedType === '' || pokemon.type.includes(selectedType)) && // Pretraga po tipu
-    (minAttack === '' || pokemon.attack >= parseInt(minAttack)) // Pretraga po minimalnom napadu
+    pokemon.name.toLowerCase().includes(searchTerm.toLowerCase()) && 
+    (selectedAbility === '' || pokemon.abilities.includes(selectedAbility)) && 
+    (selectedType === '' || pokemon.type.includes(selectedType)) && 
+    (minAttack === '' || pokemon.attack >= parseInt(minAttack)) 
   );
 
   const indexOfLastPokemon = currentPage * pokemonsPerPage;
@@ -116,7 +116,7 @@ const PokemonList = () => {
 
   return (
     <div className="pokemon-list-container">
-      {/* Forma za dodavanje pokemona vidljiva samo za admina */}
+      
       {isAuthenticated && isAdmin && (
         <div className="pokemon-form">
           <h2>Add New Pokémon</h2>
@@ -186,9 +186,9 @@ const PokemonList = () => {
         </div>
       )}
 
-      {/* Prikaz pokemona, filtera i pretrage za sve korisnike */}
+      
       <>
-        {/* Filteri */}
+      
         <input
           type="text"
           placeholder="Search Pokémon"
@@ -230,14 +230,14 @@ const PokemonList = () => {
         )}
 
         <div className="pokemon-list">
-          {/* Prikazi sve pokemone za goste (bez paginacije) */}
+         
           {(isAuthenticated ? currentPokemons : filteredPokemons).map(pokemon => (
             <div key={pokemon.id} className="pokemon-card">
               <h3>{pokemon.name}</h3>
               <p>{pokemon.stats}</p>
               <p>Abilities: {pokemon.abilities.join(', ')}</p>
               <p>Type: {pokemon.type}</p>
-              {/* Prikazi dugme za favorite samo za autentifikovane korisnike */}
+              
               {isAuthenticated && (
                 <button onClick={() => toggleFavorite(pokemon)}>
                   {favorites.some(fav => fav.id === pokemon.id) ? 'Remove from Favorites' : 'Add to Favorites'}
@@ -248,7 +248,7 @@ const PokemonList = () => {
         </div>
       </>
 
-      {/* Paginacija (samo za registrovane korisnike) */}
+     
       {isAuthenticated && (
         <nav>
           <ul className="pagination">

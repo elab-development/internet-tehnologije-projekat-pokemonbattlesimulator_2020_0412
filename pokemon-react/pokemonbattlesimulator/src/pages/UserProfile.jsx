@@ -19,7 +19,7 @@ const UserProfile = () => {
       'Eevee': ['Eevee', 'Vaporeon', 'Jolteon', 'Flareon', 'Espeon', 'Umbreon', 'Leafeon', 'Glaceon', 'Sylveon']
   };
 
-    // Mapiranje Pokemon ID-jeva na imena
+    
     const pokemonNames = {
         2: 'Pikachu',
         3: 'Charmander',
@@ -27,7 +27,7 @@ const UserProfile = () => {
         17: 'Eevee'
     };
 
-    // Funkcija za generisanje nasumičnih korisničkih podataka
+    
     const generateRandomUserData = () => {
         const randomLevel = Math.floor(Math.random() * 100) + 1;
         const randomBattles = Math.floor(Math.random() * 50) + 1;
@@ -43,14 +43,14 @@ const UserProfile = () => {
         };
     };
 
-    // Funkcija za generisanje nasumične liste Pokemona i njihovih traka za nivo
+    
     const generateRandomPokemonList = () => {
       const pokemons = ['Pikachu', 'Charmander', 'Mewtwo', 'Eevee'];
       const randomList = [];
 
       for (let i = 0; i < 3; i++) {
           const randomPokemon = pokemons[Math.floor(Math.random() * pokemons.length)];
-          const progress = Math.floor(Math.random() * 101); // Nasumična vrednost za traku (0-100%)
+          const progress = Math.floor(Math.random() * 101); 
           const stages = pokemonEvolutionStages[randomPokemon];
           const evolutionStage = getEvolutionStage(progress, stages);
           randomList.push({
@@ -63,30 +63,30 @@ const UserProfile = () => {
       return randomList;
   };
 
-  // Funkcija koja određuje evolutivni stadijum na osnovu napretka
+ 
   const getEvolutionStage = (progress, stages) => {
       if (progress < 33) {
           return stages[0];
       } else if (progress < 66) {
           return stages[1];
       } else {
-          return stages[stages.length - 1]; // Poslednji stadijum evolucije
+          return stages[stages.length - 1]; 
       }
   };
 
-  // Fetch podataka o poslednjim pobedama
+  
   const fetchRecentWins = async () => {
-      const response = await fetch(`http://localhost:8000/api/battles/wins/pokemon/Pokemon1`); // Zameni pokemon_id sa odgovarajućim ID-jem
+      const response = await fetch(`http://localhost:8000/api/battles/wins/pokemon/Pokemon1`); 
       const data = await response.json();
       setRecentWins(data);
   };
 
   useEffect(() => {
-      // Nasumično generisanje korisničkih podataka
+      
       setUser(generateRandomUserData());
-      // Generisanje nasumične liste Pokemona
+      
       setRandomPokemonList(generateRandomPokemonList());
-      // Povlačenje podataka o poslednjim pobedama
+     
       fetchRecentWins();
   }, []);
 

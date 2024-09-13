@@ -134,7 +134,7 @@ const ItemStore = () => {
   const handleChange = (e) => {
     const { name, value, files } = e.target;
     
-    // Ako se menja slika, uzmi prvi fajl
+    
     if (name === 'image') {
       setNewItem({
         ...newItem,
@@ -143,7 +143,7 @@ const ItemStore = () => {
     } else {
       setNewItem({
         ...newItem,
-        [name]: value  // Za ostala polja, uzmi vrednost iz inputa
+        [name]: value 
       });
     }
   };
@@ -152,10 +152,10 @@ const ItemStore = () => {
     e.preventDefault();
   
     const formData = new FormData();
-    formData.append('file', newItem.image);  // Dodaj fajl u FormData
+    formData.append('file', newItem.image);  
   
     try {
-      // Šaljemo sliku na backend
+      
       const response = await fetch('http://localhost:8000/api/upload', {
         method: 'POST',
         body: formData,
@@ -164,27 +164,18 @@ const ItemStore = () => {
       const result = await response.json();
       
       if (result.path) {
-        // Ako je upload uspešan, ažuriraj image putanju u stanju
+       
         const newProduct = {
           ...newItem,
-          image: result.path,  // Postavljamo URL slike koji je vraćen od Laravel-a
+          image: result.path,  
         };
 
         setNewItem(newProduct); 
   
-        // Ovde možeš poslati `newProduct` na drugi endpoint za čuvanje proizvoda u bazi
+        
         console.log('Product added:', newProduct);
   
-        // Primer kako možeš poslati `newProduct` na drugi API
-        // const productResponse = await fetch('http://localhost:8000/api/products', {
-        //   method: 'POST',
-        //   headers: {
-        //     'Content-Type': 'application/json',
-        //   },
-        //   body: JSON.stringify(newProduct),
-        // });
-        // const productResult = await productResponse.json();
-        // console.log('Product saved:', productResult);
+        
   
       } else {
         console.error('File upload failed:', result.message);
@@ -235,11 +226,11 @@ const ItemStore = () => {
       )}
       {isAuthenticated && isAdmin && (
     <div className="product-details">
-  <h2>{newItem.name}</h2>  {/* Ime proizvoda */}
-  <p><strong>Description:</strong> {newItem.description}</p>  {/* Opis proizvoda */}
-  <p><strong>Price:</strong> <img src={coinsImage} style={{ width: '12px', height: '12px' }}/> {newItem.price}</p>  {/* Cena proizvoda */}
-  <p><strong>Category:</strong> {newItem.category}</p>  {/* Kategorija proizvoda */}
-  <img src={newItem.image} alt={newItem.name} style={{ width: '300px', height: '300px' }}  />  {/* Slika proizvoda */}
+  <h2>{newItem.name}</h2> 
+  <p><strong>Description:</strong> {newItem.description}</p>  
+  <p><strong>Price:</strong> <img src={coinsImage} style={{ width: '12px', height: '12px' }}/> {newItem.price}</p>  
+  <p><strong>Category:</strong> {newItem.category}</p> 
+  <img src={newItem.image} alt={newItem.name} style={{ width: '300px', height: '300px' }}  />  
 </div>
     )}
       

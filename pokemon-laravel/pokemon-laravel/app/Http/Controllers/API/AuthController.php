@@ -15,33 +15,33 @@ class AuthController extends Controller
     {
     public function register ( Request $request )
         {
-        // Validacija zahteva
+
         $validator = Validator::make ( $request->all (), [
             'name'     => 'required|string|max:255',
             'email'    => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8|confirmed',
         ] );
 
-        // Ako validacija ne uspe, vrati grešku
+
         if ( $validator->fails () )
             {
             return response ()->json ( $validator->errors (), 422 );
             }
 
-        // Kreiraj novog korisnika
+
         $user = User::create ( [
             'name'     => $request->name,
             'email'    => $request->email,
             'password' => Hash::make ( $request->password ),
         ] );
 
-        // Dodeli ulogu korisniku. Po defaultu dodeljujemo 'user'
+
         $user->assignRole ( 'user' );
 
-        // Kreiraj token za korisnika
+
         $token = $user->createToken ( 'auth_token' )->plainTextToken;
 
-        // Vrati odgovor sa tokenom i korisnikom
+
         return response ()->json ( [ 'token' => $token, 'user' => $user ], 201 );
         }
 
@@ -67,16 +67,16 @@ class AuthController extends Controller
 
     public function logout ( Request $request )
         {
-        // Dobijamo trenutno autentifikovanog korisnika
+
         $user = $request->user ();
 
-        // Brišemo sve tokene korisnika (odjava sa svih uređaja)
+
         $user->tokens ()->delete ();
 
         return response ()->json ( [ 'message' => 'Successfully logged out' ] );
         }
 
-    // Dodaj funkcionalnost za slanje emaila za reset lozinke
+
     public function sendResetLinkEmail ( Request $request )
         {
         $request->validate ( [ 'email' => 'required|email' ] );
@@ -90,7 +90,7 @@ class AuthController extends Controller
             : response ()->json ( [ 'message' => 'Unable to send reset link' ], 500 );
         }
 
-    // Dodaj funkcionalnost za reset lozinke
+
     public function resetPassword ( Request $request )
         {
         $request->validate ( [
@@ -114,10 +114,10 @@ class AuthController extends Controller
             : response ()->json ( [ 'message' => 'Password reset failed' ], 500 );
         }
 
-    // Proveri ulogu pre dozvoljavanja pristupa
+
     public function accessProtectedRoute ( Request $request )
         {
-        // Proverava ulogu korisnika
+
         $user = $request->user ();
 
         if ( $user->hasRole ( 'admin' ) )

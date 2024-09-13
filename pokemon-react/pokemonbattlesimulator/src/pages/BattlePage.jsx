@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // Importovanje useNavigate hook-a
+import { useNavigate } from 'react-router-dom'; 
 import './BattlePage.css';
 import pokemonImage1 from '../assets/images/large.pikachu.png.4c0ec2bef34e3bafe92c69f922a3d2b3.png';
 import pokemonImage2 from '../assets/images/large.bulbasaur.png.f765693a113acd1e064ab4eb8bf10f6f.png';
@@ -42,7 +42,6 @@ const BattlePage = () => {
 
     const handleStartBattle = () => {
         if (selectedPokemon) {
-            // Store selected Pokémon name in localStorage or state if needed
             localStorage.setItem('selectedPokemon', selectedPokemon);
             navigate('/arena'); 
         }

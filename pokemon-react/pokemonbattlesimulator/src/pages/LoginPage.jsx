@@ -46,7 +46,7 @@ const LoginPage = () => {
       if (response.ok) {
         setNotifications([...notifications, { message: 'Password reset link sent to your email.', type: 'success' }]);
         setForgotPassword(false);
-        setResetPassword(true); // Pokaži formu za unos tokena i nove lozinke
+        setResetPassword(true); 
       } else {
         setNotifications([...notifications, { message: data.email || 'Unable to send reset link.', type: 'error' }]);
       }
@@ -75,7 +75,7 @@ const LoginPage = () => {
       if (response.ok) {
         setNotifications([...notifications, { message: 'Password has been reset successfully!', type: 'success' }]);
         setResetPassword(false);
-        navigate('/'); // Redirektuj nazad na login ili početnu stranicu
+        navigate('/'); 
       } else {
         setNotifications([...notifications, { message: data.message || 'Password reset failed. Try again.', type: 'error' }]);
       }

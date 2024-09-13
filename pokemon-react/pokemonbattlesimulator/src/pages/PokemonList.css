@@ -6,43 +6,43 @@
     list-style-type: none;
     padding: 0;
     margin: 0;
-    width: 100%; /* Širina liste da bude 100% */
+    width: 100%; 
 }
 
 .pokemon-list li {
-    background-color: #FFA500; /* Narandžasta boja */
-    color: white; /* Bela boja za tekst radi bolje čitljivosti */
+    background-color: #FFA500; 
+    color: white; 
     padding: 10px;
     margin: 5px 0;
-    border-radius: 8px; /* Zaobljeni ivice */
-    list-style: none; /* Uklanja defaultne oznake liste */
+    border-radius: 8px; 
+    list-style: none; 
     display: flex;
-    justify-content: space-between; /* Ravnomerno razmakni sadržaj */
+    justify-content: space-between; 
     align-items: center;
-    width: 100%; /* Širina stavki liste da bude 100% */
-    box-sizing: border-box; /* Uključi padding i border u ukupnu širinu */
+    width: 100%; 
+    box-sizing: border-box; 
 }
 
 .pokemon-list li.favorite {
-    background-color: #FF6347; /* Tamnija narandžasta za omiljene */
+    background-color: #FF6347; 
 }
 
 .pokemon-card {
     border: 1px solid #ddd;
     padding: 20px;
-    margin: 10px auto; /* Centriraj karticu */
+    margin: 10px auto; 
     border-radius: 10px;
     text-align: center;
     font-family: 'Poppins', sans-serif;
-    width: 100%; /* Širina kartica da bude 100% */
-    box-sizing: border-box; /* Uključi padding i border u ukupnu širinu */
-    background-color: #FFA500; /* Narandžasta boja za karticu */
+    width: 100%; 
+    box-sizing: border-box; 
+    background-color: #FFA500; 
 }
 
 .pokemon-name {
     font-size: 24px;
     font-weight: bold;
-    color: #007bff; /* Plava boja za naziv Pokémona */
+    color: #007bff; 
     margin-bottom: 10px;
 }
 
@@ -69,19 +69,19 @@ button:hover {
 
 .pagination {
     display: flex;
-    justify-content: center; /* Centriranje paginacije */
+    justify-content: center; 
     margin-top: 20px;
     padding: 0;
-    list-style: none; /* Uklanjanje defaultnog stila liste */
+    list-style: none; 
 }
 
 .pagination button,
 .pagination a {
-    margin: 0 85px; /* Razmak između stranica */
+    margin: 0 85px; 
     padding: 10px 15px;
     border: 1px solid #007bff;
-    background-color: white; /* Bela pozadina za dugmad */
-    color: #007bff; /* Plava boja teksta */
+    background-color: white; 
+    color: #007bff; 
     border-radius: 5px;
     cursor: pointer;
     text-decoration: none;
@@ -89,12 +89,12 @@ button:hover {
 
 .pagination button:hover,
 .pagination a:hover {
-    background-color: #007bff; /* Plava pozadina na hover */
+    background-color: #007bff; 
     color: white;
 }
 
 .pagination .active a {
-    background-color: #007bff; /* Plava pozadina za aktivnu stranicu */
+    background-color: #007bff; 
     color: white;
     border-color: #007bff;
 }
@@ -107,19 +107,19 @@ button:hover {
 .pokemon-form form {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px; /* Razmak između polja */
+    gap: 10px; 
 }
 
 .pokemon-form label {
-    width: 30px; /* Širina label-a */
+    width: 30px; 
     display: flex;
     align-items: center;
-    margin-right: 42px; /* Razmak između label-a i inputa */
+    margin-right: 42px; 
 }
 
 .pokemon-form input, .pokemon-form select {
-    flex: 1; /* Širina polja */
-    max-width: 120px; /* Maksimalna širina polja */
+    flex: 1; 
+    max-width: 120px; 
 }
 
 .pokemon-form button {
@@ -139,8 +139,8 @@ button:hover {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 10px; /* Razmak između elemenata */
-    margin-bottom: 20px; /* Razmak između filtera i liste */
+    gap: 10px; 
+    margin-bottom: 20px; 
 }
 
 .search-filter input,
@@ -149,20 +149,20 @@ button:hover {
     border: 1px solid #ccc;
     border-radius: 5px;
     font-size: 16px;
-    box-sizing: border-box; /* Uključi padding u ukupnu širinu */
+    box-sizing: border-box; 
 }
 
 .search-filter button {
     padding: 10px 20px;
     border: none;
-    background-color: #007bff; /* Plava boja za dugme */
+    background-color: #007bff;
     color: white;
     border-radius: 5px;
     cursor: pointer;
 }
 
 .search-filter button:hover {
-    background-color: #0056b3; /* Tamnija plava za hover efekat */
+    background-color: #0056b3; 
 }
 
 

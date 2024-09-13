@@ -29,7 +29,6 @@ const ArenaPage = () => {
     ];
 
     useEffect(() => {
-        // Get the selected Pokémon name from localStorage
         const selectedPokemon = localStorage.getItem('selectedPokemon');
         if (selectedPokemon) {
             setPokemon1Name(selectedPokemon);
@@ -43,7 +42,6 @@ const ArenaPage = () => {
         let p2Health = pokemon2Health;
         let log = [`Round ${round} begins in ${arenaName}!`];
 
-        // Pokémon 1 attacks
         const p1Attack = pokemon1Attacks.find(attack => attack.name === pokemon1Move);
         if (p1Attack) {
             p2Health = Math.max(p2Health - p1Attack.damage, 0);
@@ -51,13 +49,12 @@ const ArenaPage = () => {
             setPokemon2Health(p2Health);
         }
 
-        // Pokémon 2 attacks with random attack
+        
         const p2Attack = pokemon2Attacks[Math.floor(Math.random() * pokemon2Attacks.length)];
         p1Health = Math.max(p1Health - p2Attack.damage, 0);
         log.push(`${pokemon2Name} uses ${p2Attack.name} on ${pokemon1Name}! ${pokemon1Name} Health: ${p1Health}`);
         setPokemon1Health(p1Health);
 
-        // Check if either Pokémon's health is 0
         if (p1Health <= 0 || p2Health <= 0) {
             if (p1Health <= 0) {
                 setPokemon2Wins(pokemon2Wins + 1);
@@ -67,13 +64,11 @@ const ArenaPage = () => {
                 log.push(`End of Round ${round} - ${pokemon1Name} wins this round!`);
             }
 
-            // Check if game is over
             if (pokemon1Wins === 3 || pokemon2Wins === 3) {
                 setGameOver(true);
                 setGameWinner(pokemon1Wins > pokemon2Wins ? pokemon1Name : pokemon2Name);
                 log.push(`Game Over! Winner: ${pokemon1Wins > pokemon2Wins ? pokemon1Name : pokemon2Name}`);
             } else {
-                // Proceed to next round
                 setRound(round + 1);
                 setPokemon1Health(100);
                 setPokemon2Health(100);

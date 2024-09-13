@@ -9,24 +9,24 @@ const PokemonCards = () => {
     useEffect(() => {
         const fetchCards = async () => {
             try {
-                // Zameni URL sa tačnim endpoint-om za Pokémon TCG API
+                
                 const response = await fetch('https://api.pokemontcg.io/v2/cards');
                 
-                // Proveri da li je zahtev uspešan
+                
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
                 
-                // Pretvori odgovor u JSON
+                
                 const data = await response.json();
                 
-                // Postavi podatke u stanje
+                
                 setCards(data.data);
             } catch (error) {
-                // Postavi grešku u stanje
+               
                 setError(error.message);
             } finally {
-                // Završava učitavanje
+                
                 setLoading(false);
             }
         };
